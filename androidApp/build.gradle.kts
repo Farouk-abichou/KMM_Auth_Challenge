@@ -19,7 +19,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = Deps.composeVersion
     }
     packagingOptions {
         resources {
@@ -53,5 +53,9 @@ dependencies {
     implementation(Deps.coilCompose)
 
     implementation(Deps.ktorAndroid)
+
+    implementation (Deps.mviKotlin)
+    implementation (Deps.mviKotlinMain)
+    implementation (Deps.mviKotlinCoroutines)
 
 }

@@ -1,7 +1,7 @@
-package com.example.kmm_auth_challenge.store
+package com.example.kmm_auth_challenge.presentation.store
 
 import com.arkivanov.mvikotlin.core.store.Store
-import com.example.kmm_auth_challenge.store.CalculatorStore.*
+import com.example.kmm_auth_challenge.presentation.store.CalculatorStore.*
 
 interface CalculatorStore : Store<Intent, State, Nothing> {
 

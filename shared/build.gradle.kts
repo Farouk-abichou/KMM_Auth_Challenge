@@ -32,19 +32,22 @@ kotlin {
     sourceSets {
         val commonMain by getting{
             dependencies {
-                implementation(Deps.ktorCore)
-                implementation(Deps.ktorSerialization)
-                implementation(Deps.ktorSerializationJson)
                 implementation(Deps.sqlDelightRuntime)
                 implementation(Deps.sqlDelightCoroutinesExtensions)
 
                 //MVIKotlin
-                implementation ("com.arkivanov.mvikotlin:mvikotlin:3.1.0")
-                implementation ("com.arkivanov.mvikotlin:mvikotlin-main:3.1.0")
-                implementation ("com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:3.1.0")
+                implementation (Deps.mviKotlin)
+                implementation (Deps.mviKotlinMain)
+                implementation (Deps.mviKotlinCoroutines)
 
                 //Coroutines
-                implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation (Deps.coroutines)
+
+                //Ktor
+                implementation(Deps.ktorCore)
+                implementation(Deps.ktorSerialization)
+                implementation(Deps.ktorSerializationJson)
+
 
             }
         }
