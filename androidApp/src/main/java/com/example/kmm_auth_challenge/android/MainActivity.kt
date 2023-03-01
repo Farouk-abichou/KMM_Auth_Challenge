@@ -47,6 +47,10 @@ class MainActivity : ComponentActivity() {
                             text = text,
                             Modifier.padding(10.dp)
                         )
+                        Text(
+                            text = "text",
+                            Modifier.padding(10.dp)
+                        )
 
                         TextField(value = "", onValueChange = {
                         })
