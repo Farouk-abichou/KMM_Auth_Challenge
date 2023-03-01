@@ -45,8 +45,10 @@ kotlin {
 
                 //Ktor
                 implementation(Deps.ktorCore)
+                implementation(Deps.ktorCio)
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
+
 
 
             }

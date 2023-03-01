@@ -2,36 +2,37 @@ package com.example.kmm_auth_challenge.presentation.store
 
 import com.arkivanov.mvikotlin.core.store.*
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import com.example.kmm_auth_challenge.presentation.store.CalculatorStore.*
+import com.example.kmm_auth_challenge.presentation.store.AuthStore.*
 
-internal class CalculatorStoreFactory(private val storeFactory: StoreFactory) {
-    fun create(): CalculatorStore =
-        object : CalculatorStore, Store<Intent, State, Nothing> by storeFactory.create(
-            name = "CounterStore",
+internal class AuthStoreFactory(private val storeFactory: StoreFactory) {
+    fun create(): AuthStore =
+        object : AuthStore, Store<Intent, State, Nothing> by storeFactory.create(
+            name = "AuthStore",
             initialState = State(),
             bootstrapper = SimpleBootstrapper(Unit),
             executorFactory = ::ExecutorImpl,
             reducer = ReducerImpl
         ) {}
 
+
     private sealed interface Msg {
-        data class verifyUser(val number: Long) : Msg
-        data class Decremented(val number: Long) : Msg
+        data class UserIsValid(val isValid: Boolean) : Msg
+        data class UserIsNotValid(val isValid: Boolean) : Msg
     }
 
     private object ReducerImpl : Reducer<State, Msg> {
         override fun State.reduce(msg: Msg): State =
             when (msg) {
-                is Msg.verifyUser -> copy(value = value + 1)
-                is Msg.Decremented -> copy(value = value - 1)
+                is Msg.UserIsNotValid -> copy(isValid = false)
+                is Msg.UserIsValid -> copy(isValid = true)
             }
     }
 
     private inner class ExecutorImpl : CoroutineExecutor<Intent, Unit, State, Msg, Nothing>() {
         override fun executeIntent(intent: Intent, getState: () -> State) =
             when (intent) {
-                is Intent.Increment -> dispatch(Msg.verifyUser(getState().value + 1))
-                is Intent.Decrement -> dispatch(Msg.Decremented(getState().value - 1))
+                is Intent.AcceptUser -> dispatch(Msg.UserIsValid(true  ))
+                is Intent.ShowError -> dispatch(Msg.UserIsValid(false  ))
             }
     }
 }
