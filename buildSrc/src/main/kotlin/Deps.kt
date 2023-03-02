@@ -25,6 +25,7 @@ object Deps {
     const val ktorSerialization = "io.ktor:ktor-client-content-negotiation:$ktorVersion"
     const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
     const val ktorAndroid = "io.ktor:ktor-client-android:$ktorVersion"
+    const val ktorOkHttp = "io.ktor:ktor-client-okhttp:$ktorVersion"
     const val ktorIOS = "io.ktor:ktor-client-ios:$ktorVersion"
 
 

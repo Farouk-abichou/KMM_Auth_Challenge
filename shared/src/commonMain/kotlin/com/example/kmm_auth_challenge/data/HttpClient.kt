@@ -9,8 +9,7 @@ class HttpClient {
 
     suspend fun test(): String {
         val client = HttpClient(CIO)
-        val response: HttpResponse = client.get(" https://api.lissene.com")
+        val response: HttpResponse = client.get(" https://fakestoreapi.com/products/1")
         return response.status.toString()
-        client.close()
     }
 }

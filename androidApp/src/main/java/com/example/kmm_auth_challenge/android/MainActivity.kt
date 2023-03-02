@@ -5,36 +5,47 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.arkivanov.essenty.instancekeeper.instanceKeeper
-import com.example.kmm_auth_challenge.data.HttpClient
-import com.example.kmm_auth_challenge.presentation.MainController
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val controller = MainController(instanceKeeper() )
+//        val controller = MainController(instanceKeeper() )
 
-        var text = ""
-        suspend {
-            text =HttpClient().test()
-        }
+
 
 
         setContent {
             MyApplicationTheme {
 
-                val state by controller.state.collectAsState()
+//                val state by controller.state.collectAsState()
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+
+
+                    val scope = rememberCoroutineScope()
+                    var text by remember { mutableStateOf("Loading") }
+                    LaunchedEffect(true) {
+                        scope.launch {
+                            text = try {
+                                Test().greeting()
+                            } catch (e: Exception) {
+                                e.localizedMessage ?: "error"
+                            }
+                        }
+                    }
+
                     Column(
                         Modifier
                             .fillMaxSize()
@@ -42,27 +53,19 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center
                     ) {
 
+                        Text(text)
 
-                        Text(
-                            text = text,
-                            Modifier.padding(10.dp)
-                        )
-                        Text(
-                            text = "text",
-                            Modifier.padding(10.dp)
-                        )
-
-                        TextField(value = "", onValueChange = {
-                        })
-                        Spacer(modifier = Modifier.height(8.dp))
-                        TextField(value = "", onValueChange = {})
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Button(onClick = {
-                        }) {
-                            Text("Login")
-                        }
+//                        TextField(value = "", onValueChange = {
+//                        })
+//                        Spacer(modifier = Modifier.height(8.dp))
+//                        TextField(value = "", onValueChange = {})
+//
+//                        Spacer(modifier = Modifier.height(8.dp))
+//
+//                        Button(onClick = {
+//                        }) {
+//                            Text("Login")
+//                        }
                     }
                 }
             }
@@ -70,3 +73,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+class Test(){
+    private val client = io.ktor.client.HttpClient()
+    suspend fun greeting(): String {
+        val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
+        return response.toString()
+    }
+}

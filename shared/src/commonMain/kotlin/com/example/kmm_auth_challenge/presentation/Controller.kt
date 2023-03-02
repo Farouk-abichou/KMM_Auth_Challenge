@@ -6,6 +6,10 @@ import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.example.kmm_auth_challenge.presentation.store.AuthStore
 import com.example.kmm_auth_challenge.presentation.store.AuthStoreFactory
 import com.example.kmm_auth_challenge.domain.storeFactoryInstance
+import io.ktor.client.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainController(
@@ -27,3 +31,4 @@ class MainController(
 
 
 }
+

@@ -52,8 +52,14 @@ dependencies {
     implementation(Deps.composeNavigation)
     implementation(Deps.coilCompose)
 
-    implementation(Deps.ktorAndroid)
+    //Coroutines
+    implementation(Deps.coroutines)
 
+    //Ktor
+    implementation(Deps.ktorAndroid)
+    implementation(Deps.ktorOkHttp)
+
+    //MVIKotlin
     implementation (Deps.mviKotlin)
     implementation (Deps.mviKotlinMain)
     implementation (Deps.mviKotlinCoroutines)
