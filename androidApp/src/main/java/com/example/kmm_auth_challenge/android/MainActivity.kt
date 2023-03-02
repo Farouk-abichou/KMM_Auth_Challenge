@@ -8,9 +8,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import com.arkivanov.essenty.instancekeeper.instanceKeeper
+import com.example.kmm_auth_challenge.auth.TokenResponse
+import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        val controller = MainController(instanceKeeper() )
+        val controller = MainController(instanceKeeper() )
 
 
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
 
-//                val state by controller.state.collectAsState()
+                val state by controller.state.collectAsState()
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     LaunchedEffect(true) {
                         scope.launch {
                             text = try {
-                                Test().greeting()
+                                controller.getInfo("55529601","123456789")
                             } catch (e: Exception) {
                                 e.localizedMessage ?: "error"
                             }
@@ -73,10 +73,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-class Test(){
-    private val client = io.ktor.client.HttpClient()
-    suspend fun greeting(): String {
-        val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
-        return response.toString()
-    }
-}

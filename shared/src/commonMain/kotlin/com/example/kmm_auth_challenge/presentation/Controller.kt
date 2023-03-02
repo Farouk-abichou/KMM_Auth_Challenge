@@ -3,19 +3,25 @@ package com.example.kmm_auth_challenge.presentation
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
-import com.example.kmm_auth_challenge.presentation.store.AuthStore
+import com.example.kmm_auth_challenge.auth.AuthRepositoryImpl
 import com.example.kmm_auth_challenge.presentation.store.AuthStoreFactory
 import com.example.kmm_auth_challenge.domain.storeFactoryInstance
 import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
 import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.util.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainController(
     instanceKeeper: InstanceKeeper,
-
 ) {
+
+    val repository = AuthRepositoryImpl()
+
     private val listStore =
         instanceKeeper.getStore {
             AuthStoreFactory(
@@ -27,6 +33,12 @@ class MainController(
     val state = listStore.stateFlow
 
 
+    suspend fun getInfo(phone:String, password: String): String {
+        return repository.getResponse(
+            phone =phone,
+            password = password
+        )
+    }
 
 
 
