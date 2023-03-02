@@ -9,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.essenty.instancekeeper.instanceKeeper
-import com.example.kmm_auth_challenge.auth.TokenResponse
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
 
@@ -20,7 +19,8 @@ class MainActivity : ComponentActivity() {
 
         val controller = MainController(instanceKeeper() )
 
-
+        val phone = mutableStateOf("")
+        val password = mutableStateOf("")
 
 
         setContent {
@@ -28,23 +28,22 @@ class MainActivity : ComponentActivity() {
 
                 val state by controller.state.collectAsState()
 
+                val scope = rememberCoroutineScope()
+                var text by remember { mutableStateOf("Loading") }
+                LaunchedEffect(true) {
+                    scope.launch {
+                        text = try {
+                            controller.getInfo(phone.value,password.value)
+                        } catch (e: Exception) {
+                            e.localizedMessage ?: "error"
+                        }
+                    }
+                }
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
-
-                    val scope = rememberCoroutineScope()
-                    var text by remember { mutableStateOf("Loading") }
-                    LaunchedEffect(true) {
-                        scope.launch {
-                            text = try {
-                                controller.getInfo("55529601","123456789")
-                            } catch (e: Exception) {
-                                e.localizedMessage ?: "error"
-                            }
-                        }
-                    }
 
                     Column(
                         Modifier
@@ -53,19 +52,23 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center
                     ) {
 
-                        Text(text)
+                        Text("Welcome")
 
-//                        TextField(value = "", onValueChange = {
-//                        })
-//                        Spacer(modifier = Modifier.height(8.dp))
-//                        TextField(value = "", onValueChange = {})
-//
-//                        Spacer(modifier = Modifier.height(8.dp))
-//
-//                        Button(onClick = {
-//                        }) {
-//                            Text("Login")
-//                        }
+                        TextField(value = phone.value, onValueChange = {
+                            phone.value
+                        })
+                        Spacer(modifier = Modifier.height(8.dp))
+                        TextField(value = password.value, onValueChange = {
+                            password.value
+                        })
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Button(onClick = {
+                        }) {
+                            Text("Login")
+                        }
+                        Text(text = text)
                     }
                 }
             }

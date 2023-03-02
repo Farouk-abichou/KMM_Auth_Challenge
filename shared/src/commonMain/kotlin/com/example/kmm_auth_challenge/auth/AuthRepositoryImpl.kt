@@ -1,5 +1,6 @@
 package com.example.kmm_auth_challenge.auth
 
+import com.example.kmm_auth_challenge.domain.TokenDto
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -7,11 +8,13 @@ import io.ktor.client.plugins.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 class AuthRepositoryImpl(
 
 ) {
-    suspend fun getResponse(phone :String,password: String): String {
+    suspend fun getResponse(phone :String,password: String): Login {
 
         val client = HttpClient(CIO){
             defaultRequest {
@@ -25,8 +28,8 @@ class AuthRepositoryImpl(
                 append("password", password)
             }
         )
+        val obj = Json.decodeFromString<Login>(response.body())
 
-        return response.body()
-//            , accessToken = , refreshToken =
+        return obj
     }
 }

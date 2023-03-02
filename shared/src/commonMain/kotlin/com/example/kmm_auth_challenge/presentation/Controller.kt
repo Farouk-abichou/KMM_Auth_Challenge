@@ -20,7 +20,7 @@ class MainController(
     instanceKeeper: InstanceKeeper,
 ) {
 
-    val repository = AuthRepositoryImpl()
+    private val repository = AuthRepositoryImpl()
 
     private val listStore =
         instanceKeeper.getStore {
@@ -37,8 +37,13 @@ class MainController(
         return repository.getResponse(
             phone =phone,
             password = password
-        )
+        ).status!!
     }
+
+
+
+
+
 
 
 
