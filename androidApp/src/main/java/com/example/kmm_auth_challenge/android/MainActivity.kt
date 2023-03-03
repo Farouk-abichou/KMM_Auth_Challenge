@@ -7,14 +7,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import com.arkivanov.essenty.instancekeeper.instanceKeeper
+import com.example.kmm_auth_challenge.android.presentation.LoginScreen
 import com.example.kmm_auth_challenge.presentation.MainController
 
 class MainActivity : ComponentActivity() {
 
-    val controller = MainController(instanceKeeper() )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+         val controller = MainController(instanceKeeper() )
 
 
         setContent {
@@ -24,7 +25,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
+                    LoginScreen(
+                        controller
+                    )
                 }
             }
         }

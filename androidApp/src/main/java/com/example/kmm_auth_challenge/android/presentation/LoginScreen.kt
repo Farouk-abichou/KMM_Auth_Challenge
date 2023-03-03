@@ -17,7 +17,7 @@ fun LoginScreen(
     controller : MainController
 ){
 
-    val user = remember{ mutableStateOf(User("", "")) }
+    val user = remember{ mutableStateOf(User("55529601", "123456789")) }
 
     val state by controller.state.collectAsState()
 
