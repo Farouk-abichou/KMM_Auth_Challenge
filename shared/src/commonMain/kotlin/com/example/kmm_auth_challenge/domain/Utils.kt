@@ -5,3 +5,6 @@ import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 
 val storeFactoryInstance: StoreFactory = DefaultStoreFactory()
 
+const val BASE_URL = "https://api.lissene.com"
+const val LOGIN_URL = "/api/v2/auth/login"
+const val USER_URL = "/api/v2/user/me"

@@ -1,6 +1,7 @@
 package com.example.kmm_auth_challenge.auth
 
-import com.example.kmm_auth_challenge.domain.TokenDto
+import com.example.kmm_auth_challenge.domain.BASE_URL
+import com.example.kmm_auth_challenge.domain.LOGIN_URL
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -13,23 +14,22 @@ import kotlinx.serialization.json.Json
 
 class AuthRepositoryImpl(
 
-) {
-    suspend fun getResponse(phone :String,password: String): Login {
+) :AuthRepository{
+    override suspend fun login(phone: String, password: String): LoginRespond {
 
-        val client = HttpClient(CIO){
+        val client = HttpClient(CIO) {
             defaultRequest {
-                url("https://api.lissene.com")
+                url(BASE_URL)
             }
         }
         val response: HttpResponse = client.submitForm(
-            url = "/api/v2/auth/login",
+            url = LOGIN_URL,
             formParameters = Parameters.build {
                 append("phone", phone)
                 append("password", password)
             }
         )
-        val obj = Json.decodeFromString<Login>(response.body())
 
-        return obj
+        return Json.decodeFromString(response.body())
     }
 }
