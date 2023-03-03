@@ -8,6 +8,7 @@ import io.ktor.client.statement.*
 class HttpClient {
 
     suspend fun test(): String {
+        //zlblb waz here
         val client = HttpClient(CIO)
         val response: HttpResponse = client.get(" https://fakestoreapi.com/products/1")
         return response.status.toString()
