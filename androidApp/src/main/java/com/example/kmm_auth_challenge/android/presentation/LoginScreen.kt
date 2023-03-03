@@ -8,6 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.kmm_auth_challenge.android.core.presentation.Routes
 import com.example.kmm_auth_challenge.auth.User
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
@@ -15,7 +17,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
-    controller : MainController
+    controller : MainController,
+    navController: NavController
 ){
 
     val user = remember{ mutableStateOf(User("55529601", "123456789")) }
@@ -58,7 +61,9 @@ fun LoginScreen(
                     e.localizedMessage ?: "error"
                 }
                 if(text=="success"){
-                    Nav
+                    navController.navigate(
+                        Routes.SECRET_SCREEN
+                    )
                 }
             }
         }) {
