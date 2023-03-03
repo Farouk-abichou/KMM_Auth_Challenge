@@ -8,9 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
-import com.example.kmm_auth_challenge.auth.User
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
 
@@ -21,7 +19,8 @@ fun LoginScreen(
     navController: NavController
 ){
 
-    val user = remember{ mutableStateOf(User("55529601", "123456789")) }
+    val phone = remember{ mutableStateOf("") }
+    val password = remember{ mutableStateOf("") }
 
     val state by controller.state.collectAsState()
 
@@ -38,16 +37,16 @@ fun LoginScreen(
         Text("Welcome")
 
         TextField(
-            value = user.value.phone,
+            value = phone.value,
             onValueChange = {
-                user.value.phone
+                phone.value = it
             }
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
-            value = user.value.password,
+            value = password.value,
             onValueChange = {
-                user.value.password
+                password.value = it
             }
         )
 
@@ -56,7 +55,7 @@ fun LoginScreen(
         Button(onClick = {
             scope.launch {
                 text = try {
-                    controller.getInfo(user.value.phone,user.value.password)
+                    controller.getInfo(phone.value,password.value)
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
                 }
