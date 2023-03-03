@@ -7,6 +7,7 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.auth.User
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
@@ -36,14 +37,14 @@ fun LoginScreen(
         TextField(
             value = user.value.phone,
             onValueChange = {
-
+                user.value.phone
             }
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
             value = user.value.password,
             onValueChange = {
-
+                user.value.password
             }
         )
 
@@ -55,6 +56,9 @@ fun LoginScreen(
                     controller.getInfo(user.value.phone,user.value.password)
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
+                }
+                if(text=="success"){
+                    Nav
                 }
             }
         }) {
