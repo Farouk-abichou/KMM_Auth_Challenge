@@ -14,8 +14,7 @@ import com.example.kmm_auth_challenge.presentation.MainController
 fun SecretScreen (
     controller: MainController
 ){
-
-    val state by controller.state.collectAsState()
+    //val state by controller.state.collectAsState()
 
     val text = remember{ mutableStateOf("") }
     Column(
@@ -30,5 +29,4 @@ fun SecretScreen (
         }
         Text(text = text.value)
     }
-
 }
