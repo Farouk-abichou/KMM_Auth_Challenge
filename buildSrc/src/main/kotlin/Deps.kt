@@ -22,6 +22,7 @@ object Deps {
     private const val ktorVersion = "2.1.3"
     const val ktorCore = "io.ktor:ktor-client-core:$ktorVersion"
     const val ktorCio = "io.ktor:ktor-client-cio:$ktorVersion"
+    const val ktorAuth = "io.ktor:ktor-client-auth:$ktorVersion"
     const val ktorSerialization = "io.ktor:ktor-client-content-negotiation:$ktorVersion"
     const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
     const val ktorAndroid = "io.ktor:ktor-client-android:$ktorVersion"
@@ -59,4 +60,9 @@ object Deps {
     private const val coroutinesVersion = "1.6.4"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
 
+
+    //Settings Data
+    private const val settingsDataVersion = "1.0.0"
+    const val settingsData = "com.russhwolf:multiplatform-settings:${Deps.settingsDataVersion}"
+    const val settingsDataStore = "com.russhwolf:multiplatform-settings-datastore:${Deps.settingsDataVersion}"
 }

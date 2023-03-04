@@ -40,6 +40,9 @@ class MainController(
             password = password
         ).status!!
     }
+     fun getRespond(){
+        return repository.getRespond()
+    }
 
 }
 

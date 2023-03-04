@@ -17,12 +17,18 @@ fun SecretScreen (
 
     val state by controller.state.collectAsState()
 
+    val text = remember{ mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Top Secret")
+        text.value = try {
+            controller.getRespond().toString()
+        } catch (e: Exception) {
+            e.localizedMessage ?: "error"
+        }
+        Text(text = text.value)
     }
 
 }
