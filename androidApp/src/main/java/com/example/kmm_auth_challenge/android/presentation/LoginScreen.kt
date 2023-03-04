@@ -57,7 +57,7 @@ fun LoginScreen(
         Button(onClick = {
             scope.launch {
                 status.value = try {
-                    controller.getInfo(phone.value,password.value)
+                    controller.getInfo("55529601","123456789")
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
                 }
