@@ -50,6 +50,8 @@ kotlin {
                 implementation(Deps.ktorSerializationJson)
 
 
+                //Multiplatform Settings
+                implementation("com.russhwolf:multiplatform-settings:1.0.0")
 
 
             }

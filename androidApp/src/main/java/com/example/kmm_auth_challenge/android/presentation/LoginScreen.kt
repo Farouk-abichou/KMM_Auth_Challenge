@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
+import com.example.kmm_auth_challenge.auth.LoginRespond
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
 
@@ -25,7 +26,8 @@ fun LoginScreen(
     val state by controller.state.collectAsState()
 
     val scope = rememberCoroutineScope()
-    var text by remember { mutableStateOf("Loading") }
+    val status = remember { mutableStateOf("Loading") }
+    val loginRespond = remember { mutableStateOf(LoginRespond("","","")) }
 
     Column(
         Modifier
@@ -54,12 +56,12 @@ fun LoginScreen(
 
         Button(onClick = {
             scope.launch {
-                text = try {
+                status.value = try {
                     controller.getInfo(phone.value,password.value)
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
                 }
-                if(text=="success"){
+                if(status.value=="success"){
                     navController.navigate(
                         Routes.SECRET_SCREEN
                     )
@@ -69,6 +71,6 @@ fun LoginScreen(
             Text("Login")
         }
 
-        Text(text = text)
+        Text(text = status.value)
     }
 }
