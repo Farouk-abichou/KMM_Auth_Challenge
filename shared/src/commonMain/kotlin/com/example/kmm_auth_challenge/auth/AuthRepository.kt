@@ -4,5 +4,5 @@ interface AuthRepository {
 
     suspend fun login(phone: String, password: String): LoginRespond
 
-    fun getRespond()
+//    fun getRespond()
 }

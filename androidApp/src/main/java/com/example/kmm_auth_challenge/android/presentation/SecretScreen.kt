@@ -22,11 +22,11 @@ fun SecretScreen (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        text.value = try {
-            controller.getRespond().toString()
-        } catch (e: Exception) {
-            e.localizedMessage ?: "error"
-        }
+//        text.value = try {
+//            controller.getRespond().toString()
+//        } catch (e: Exception) {
+//            e.localizedMessage ?: "error"
+//        }
         Text(text = text.value)
     }
 }

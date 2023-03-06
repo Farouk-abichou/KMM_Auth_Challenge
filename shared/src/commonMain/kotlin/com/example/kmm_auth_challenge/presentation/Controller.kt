@@ -38,11 +38,11 @@ class MainController(
         return repository.login(
             phone =phone,
             password = password
-        ).status!!
+        ).status.toString()
     }
-     fun getRespond(){
-        return repository.getRespond()
-    }
+//     fun getRespond(){
+//        return repository.getRespond()
+//    }
 
 }
 

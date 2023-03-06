@@ -46,13 +46,14 @@ kotlin {
                 //Ktor
                 implementation(Deps.ktorCore)
                 implementation(Deps.ktorCio)
-                implementation(Deps.ktorAuth        )
+                implementation(Deps.ktorAuth)
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
 
 
                 //Multiplatform Settings
                 implementation(Deps.settingsData)
+                //
                 implementation(Deps.settingsDataStore)
 
 
