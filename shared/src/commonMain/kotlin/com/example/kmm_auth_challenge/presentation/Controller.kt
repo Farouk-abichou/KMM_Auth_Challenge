@@ -35,17 +35,17 @@ class MainController(
     val state = listStore.stateFlow
 
 
-    suspend fun getInfo(phone:String, password: String): String {
-        return repository.login(
-            phone =phone,
-            password = password
-        ).status
-    }
-     suspend fun getRespond(): UserInfo {
-        return repository.getRespond()
-    }
+//    suspend fun getInfo(phone:String, password: String): String {
+//        return repository.login(
+//            phone =phone,
+//            password = password
+//        ).status
+//    }
+//     suspend fun getRespond(): UserInfo {
+//        return repository.getRespond()
+//    }
 
-     fun checkToken() : Boolean{
-        return Data().userInfoSettings.toString() != ""
+     fun checkToken() {
+        return repository.authenticate("55529601","123456789")
     }
 }

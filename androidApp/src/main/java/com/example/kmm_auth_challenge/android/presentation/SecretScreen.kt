@@ -28,9 +28,9 @@ fun SecretScreen (
         verticalArrangement = Arrangement.Center
     ) {
 
-        LaunchedEffect(key1 = Unit){
-            text.value =controller.getRespond().toString()
-        }
+//        LaunchedEffect(key1 = Unit){
+//            text.value =controller.getRespond().toString()
+//        }
 
 
         Text(text = text.value)

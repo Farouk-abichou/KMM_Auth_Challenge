@@ -33,15 +33,13 @@ fun LoginScreen(
 
     LaunchedEffect(Unit){
         scope.launch {
-
-            if ( controller.checkToken()){
-                navController.navigate(
-                    Routes.SECRET_SCREEN
-                )
-            }
+            controller.checkToken()
+            println( controller.checkToken().toString())
         }
 
+
     }
+
 
     Column(
         Modifier
@@ -70,11 +68,11 @@ fun LoginScreen(
 
         Button(onClick = {
             scope.launch {
-                status.value = try {
-                    controller.getInfo(phone.value,password.value)
-                } catch (e: Exception) {
-                    e.localizedMessage ?: "error"
-                }
+//                status.value = try {
+//                    controller.getInfo(phone.value,password.value)
+//                } catch (e: Exception) {
+//                    e.localizedMessage ?: "error"
+//                }
                 if(status.value=="success"){
                     navController.navigate(
                         Routes.SECRET_SCREEN

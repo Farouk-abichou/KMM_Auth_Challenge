@@ -5,6 +5,6 @@ package com.example.kmm_auth_challenge.auth.models
 
 data class LoginRespond(
     val status : String,
-    val accessToken : String? = null,
-    val refreshToken : String? = null
+    val accessToken : String,
+    val refreshToken : String
 )
