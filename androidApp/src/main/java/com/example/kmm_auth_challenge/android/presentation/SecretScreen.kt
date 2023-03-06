@@ -7,7 +7,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.kmm_auth_challenge.android.core.presentation.Routes
 import com.example.kmm_auth_challenge.presentation.MainController
+import io.ktor.client.utils.EmptyContent.status
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -15,6 +18,8 @@ fun SecretScreen (
     controller: MainController
 ){
     //val state by controller.state.collectAsState()
+    val scope = rememberCoroutineScope()
+
 
     val text = remember{ mutableStateOf("") }
     Column(
@@ -27,6 +32,14 @@ fun SecretScreen (
 //        } catch (e: Exception) {
 //            e.localizedMessage ?: "error"
 //        }
+        LaunchedEffect(Unit){
+            scope.launch {
+
+                controller.getRespond("","")
+            }
+
+        }
+
         Text(text = text.value)
     }
 }

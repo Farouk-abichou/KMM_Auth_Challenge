@@ -40,9 +40,11 @@ class MainController(
             password = password
         ).status
     }
-//     fun getRespond(){
-//        return repository.getRespond()
-//    }
-
+     suspend fun getRespond(phone:String, password: String): String {
+        return repository.getRespond(
+            phone =phone,
+            password = password
+        ).password
+    }
 }
 
