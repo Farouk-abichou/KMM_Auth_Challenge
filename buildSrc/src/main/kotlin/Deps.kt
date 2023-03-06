@@ -64,5 +64,6 @@ object Deps {
     //Settings Data
     private const val settingsDataVersion = "1.0.0"
     const val settingsData = "com.russhwolf:multiplatform-settings:${Deps.settingsDataVersion}"
+    const val settingsDataNoArg = "com.russhwolf:multiplatform-settings-no-arg:$settingsDataVersion"
     const val settingsDataStore = "com.russhwolf:multiplatform-settings-datastore:${Deps.settingsDataVersion}"
 }

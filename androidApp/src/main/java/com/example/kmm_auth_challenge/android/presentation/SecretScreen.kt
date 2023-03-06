@@ -21,13 +21,6 @@ fun SecretScreen (
     //val state by controller.state.collectAsState()
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(Unit){
-        scope.launch {
-
-            text.value = controller.getRespond()
-        }
-
-    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -35,6 +28,9 @@ fun SecretScreen (
         verticalArrangement = Arrangement.Center
     ) {
 
+        LaunchedEffect(key1 = Unit){
+            text.value =controller.getRespond().toString()
+        }
 
 
         Text(text = text.value)

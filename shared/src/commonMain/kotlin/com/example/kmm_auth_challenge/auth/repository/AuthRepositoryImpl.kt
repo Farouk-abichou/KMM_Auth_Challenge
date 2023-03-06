@@ -1,9 +1,11 @@
 package com.example.kmm_auth_challenge.auth.repository
 
 import com.example.kmm_auth_challenge.auth.models.*
+import com.example.kmm_auth_challenge.data.Data
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
 import com.example.kmm_auth_challenge.domain.USER_URL
+import com.russhwolf.settings.get
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -37,13 +39,14 @@ class AuthRepositoryImpl(
             }
         )
 
-//        val obj = Json.decodeFromString<LoginRespond>(postResponse.body())
+        val obj = Json.decodeFromString<LoginRespond>(postResponse.body())
 
+        Data().settings.putString("accessToken",obj.refreshToken.toString())
 
         return Json.decodeFromString(postResponse.body())
     }
 
-    override suspend fun getRespond() : String {
+    override suspend fun getRespond() : UserInfo {
 
         val client = HttpClient(CIO) {
             defaultRequest {
@@ -52,10 +55,11 @@ class AuthRepositoryImpl(
         }
 
         val getRespond : HttpResponse = client.get(USER_URL){
-            bearerAuth(login("55529601","123456789").accessToken!!)
+            bearerAuth(Data().settings["accessToken"]!!)
         }
+        val obj = Json.decodeFromString<UserInfo>(getRespond.body())
 
-        return getRespond.body()
+        return obj
     }
 
 }

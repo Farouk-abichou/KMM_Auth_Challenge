@@ -3,6 +3,7 @@ package com.example.kmm_auth_challenge.presentation
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
+import com.example.kmm_auth_challenge.auth.models.UserInfo
 import com.example.kmm_auth_challenge.auth.repository.AuthRepositoryImpl
 import com.example.kmm_auth_challenge.presentation.store.AuthStoreFactory
 import com.example.kmm_auth_challenge.domain.storeFactoryInstance
@@ -38,7 +39,7 @@ class MainController(
             password = password
         ).status
     }
-     suspend fun getRespond(): String {
+     suspend fun getRespond(): UserInfo {
         return repository.getRespond()
     }
 }

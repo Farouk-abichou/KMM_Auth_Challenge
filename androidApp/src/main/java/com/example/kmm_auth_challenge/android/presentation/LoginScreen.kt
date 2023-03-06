@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
 import com.example.kmm_auth_challenge.auth.models.LoginRespond
 import com.example.kmm_auth_challenge.presentation.MainController
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -29,6 +30,21 @@ fun LoginScreen(
     val scope = rememberCoroutineScope()
     val status = remember { mutableStateOf("") }
     val loginRespond = remember { mutableStateOf(LoginRespond("","","")) }
+
+
+    LaunchedEffect(Unit){
+        scope.launch {
+            delay(3000)
+
+            if ( controller.getRespond().toString() =="success"){
+                controller.getRespond()
+                navController.navigate(
+                    Routes.SECRET_SCREEN
+                )
+            }
+        }
+
+    }
 
     Column(
         Modifier
@@ -68,11 +84,15 @@ fun LoginScreen(
                     )
                 }
             }
-            Log.d("yooo",status.value)
         }) {
             Text("Login")
         }
 
-        Text(text = status.value)
+        if (status.value == "success"){
+            Text(text = "Welcome Back")
+        }else if (status.value !=""){
+            Text(text = "Enter valid Password ")
+
+        }
     }
 }

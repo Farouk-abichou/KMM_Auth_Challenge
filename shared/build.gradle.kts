@@ -53,8 +53,11 @@ kotlin {
 
                 //Multiplatform Settings
                 implementation(Deps.settingsData)
-                //
+
+                //Settings Store
                 implementation(Deps.settingsDataStore)
+                implementation(Deps.settingsDataNoArg)
+                implementation(Deps.settingsData)
 
 
             }
