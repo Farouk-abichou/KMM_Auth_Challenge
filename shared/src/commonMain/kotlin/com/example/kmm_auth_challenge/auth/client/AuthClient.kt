@@ -1,10 +1,8 @@
-package com.example.kmm_auth_challenge.auth.repository
+package com.example.kmm_auth_challenge.auth.client
 
 import com.example.kmm_auth_challenge.auth.models.*
-import com.example.kmm_auth_challenge.data.Data
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
-import com.example.kmm_auth_challenge.domain.USER_URL
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -12,7 +10,6 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -21,9 +18,8 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 
-class AuthRepositoryImpl(
+class AuthClient() {
 
-) {
     private val bearerTokenStorage = mutableListOf<BearerTokens>()
 
     private val client = HttpClient(CIO) {
@@ -32,7 +28,22 @@ class AuthRepositoryImpl(
         }
     }
 
-    fun authenticate(phone:String,password:String){
+    suspend fun authentication(phone:String, password:String) : LoginRespond{
+        val postResponse: HttpResponse = client.submitForm(
+            url = LOGIN_URL,
+            formParameters = Parameters.build {
+                append("phone", phone)
+                append("password", password)
+            }
+        )
+        val obj = Json.decodeFromString<LoginRespond>(postResponse.body())
+
+        bearerTokenStorage.add(BearerTokens(obj.accessToken,obj.refreshToken))
+
+        return obj
+    }
+
+    fun authorization(phone:String, password:String){
         HttpClient(CIO) {
             install(ContentNegotiation) {
                 json()
@@ -55,9 +66,6 @@ class AuthRepositoryImpl(
                         ) { markAsRefreshTokenRequest() }.body()
                         bearerTokenStorage.add(BearerTokens(refreshTokenInfo.accessToken, oldTokens?.refreshToken!!))
                         bearerTokenStorage.last()
-                    }
-                    sendWithoutRequest { request ->
-                        request.url.host == BASE_URL
                     }
                 }
             }

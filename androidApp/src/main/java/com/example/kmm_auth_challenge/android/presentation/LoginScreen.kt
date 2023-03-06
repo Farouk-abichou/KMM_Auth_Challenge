@@ -31,14 +31,14 @@ fun LoginScreen(
     val loginRespond = remember { mutableStateOf(LoginRespond("","","")) }
 
 
-    LaunchedEffect(Unit){
-        scope.launch {
-            controller.checkToken()
-            println( controller.checkToken().toString())
-        }
-
-
-    }
+//    LaunchedEffect(Unit){
+//        scope.launch {
+//            controller.checkToken()
+//            println( controller.checkToken().toString())
+//        }
+//
+//
+//    }
 
 
     Column(
@@ -68,11 +68,11 @@ fun LoginScreen(
 
         Button(onClick = {
             scope.launch {
-//                status.value = try {
-//                    controller.getInfo(phone.value,password.value)
-//                } catch (e: Exception) {
-//                    e.localizedMessage ?: "error"
-//                }
+                status.value = try {
+                    controller.getInfo(phone.value,password.value)
+                } catch (e: Exception) {
+                    e.localizedMessage ?: "error"
+                }
                 if(status.value=="success"){
                     navController.navigate(
                         Routes.SECRET_SCREEN
