@@ -1,5 +1,6 @@
-package com.example.kmm_auth_challenge.auth
+package com.example.kmm_auth_challenge.auth.repository
 
+import com.example.kmm_auth_challenge.auth.models.LoginRespond
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
 import io.ktor.client.*
@@ -17,10 +18,12 @@ import kotlinx.serialization.json.Json
 
 class AuthRepositoryImpl(
 
-) :AuthRepository{
+) : AuthRepository {
 
 
     private var respond = LoginRespond("","","")
+
+    val bearerTokenStorage = mutableListOf<BearerTokens>()
     override suspend fun login(phone: String, password: String): LoginRespond {
 
         val client = HttpClient(CIO) {
@@ -36,27 +39,27 @@ class AuthRepositoryImpl(
             }
         )
 
-//        val obj = Json.decodeFromString<LoginRespond>(response.body())
+        val obj = Json.decodeFromString<LoginRespond>(response.body())
 
-//        respond = LoginRespond(obj.status,obj.accessToken,obj.refreshToken)
+        respond = LoginRespond(obj.status,obj.accessToken,obj.refreshToken)
 
-        return Json.decodeFromString(response.body())
+        return obj
     }
 
-//    override fun getRespond(){
-//         HttpClient(CIO){
-//            defaultRequest {
-//                url(BASE_URL)
-//            }
-//            install(Auth){
-//                bearer {
-//                    loadTokens {
-//                        BearerTokens(respond.accessToken.toString(),respond.refreshToken.toString())
-//                    }
-//                }
-//            }
-//        }
-//
-//    }
+    override fun getRespond(){
+         HttpClient(CIO){
+            defaultRequest {
+                url(BASE_URL)
+            }
+            install(Auth){
+                bearer {
+                    loadTokens {
+                        bearerTokenStorage.last()
+                    }
+                }
+            }
+        }
+
+    }
 
 }

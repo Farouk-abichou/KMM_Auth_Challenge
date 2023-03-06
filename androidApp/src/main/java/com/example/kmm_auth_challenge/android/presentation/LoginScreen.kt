@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
-import com.example.kmm_auth_challenge.auth.LoginRespond
+import com.example.kmm_auth_challenge.auth.models.LoginRespond
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
 

@@ -3,7 +3,7 @@ package com.example.kmm_auth_challenge.presentation
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
-import com.example.kmm_auth_challenge.auth.AuthRepositoryImpl
+import com.example.kmm_auth_challenge.auth.repository.AuthRepositoryImpl
 import com.example.kmm_auth_challenge.presentation.store.AuthStoreFactory
 import com.example.kmm_auth_challenge.domain.storeFactoryInstance
 import io.ktor.client.*
@@ -38,7 +38,7 @@ class MainController(
         return repository.login(
             phone =phone,
             password = password
-        ).status.toString()
+        ).status
     }
 //     fun getRespond(){
 //        return repository.getRespond()
