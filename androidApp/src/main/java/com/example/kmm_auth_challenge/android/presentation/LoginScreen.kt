@@ -1,6 +1,5 @@
 package com.example.kmm_auth_challenge.android.presentation
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -11,8 +10,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
 import com.example.kmm_auth_challenge.auth.models.LoginRespond
+import com.example.kmm_auth_challenge.data.Data
 import com.example.kmm_auth_challenge.presentation.MainController
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -34,10 +33,8 @@ fun LoginScreen(
 
     LaunchedEffect(Unit){
         scope.launch {
-            delay(3000)
 
-            if ( controller.getRespond().toString() =="success"){
-                controller.getRespond()
+            if ( controller.checkToken()){
                 navController.navigate(
                     Routes.SECRET_SCREEN
                 )

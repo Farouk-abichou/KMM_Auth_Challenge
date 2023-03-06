@@ -23,14 +23,16 @@ class AuthRepositoryImpl(
 
 ) : AuthRepository {
 
-    private val bearerTokenStorage = mutableListOf<BearerTokens>()
+    private val client = HttpClient(CIO) {
+        defaultRequest {
+            url(BASE_URL)
+        }
+    }
+
+
+
     override suspend fun login(phone: String, password: String): LoginRespond {
 
-        val client = HttpClient(CIO) {
-            defaultRequest {
-                url(BASE_URL)
-            }
-        }
         val postResponse: HttpResponse = client.submitForm(
             url = LOGIN_URL,
             formParameters = Parameters.build {
@@ -46,20 +48,21 @@ class AuthRepositoryImpl(
         return Json.decodeFromString(postResponse.body())
     }
 
+
+
     override suspend fun getRespond() : UserInfo {
-
-        val client = HttpClient(CIO) {
-            defaultRequest {
-                url(BASE_URL)
-            }
-        }
-
         val getRespond : HttpResponse = client.get(USER_URL){
-            bearerAuth(Data().settings["accessToken"]!!)
+            bearerAuth(
+                try {
+                    Data().settings["accessToken"]!!
+                }catch (e: Exception){
+                    e.toString()
+                }
+            )
         }
         val obj = Json.decodeFromString<UserInfo>(getRespond.body())
+        Data().userInfoSettings.putString("Status",obj.status)
 
         return obj
     }
-
 }
