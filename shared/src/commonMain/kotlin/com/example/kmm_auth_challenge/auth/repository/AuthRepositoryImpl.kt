@@ -10,6 +10,7 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
@@ -28,6 +29,28 @@ class AuthRepositoryImpl(
             url(BASE_URL)
         }
     }
+
+    fun authenticate(accessToken : String, refreshTokens : String){
+        val authorizationClient = HttpClient(CIO) {
+            defaultRequest {
+                url(BASE_URL)
+            }
+            install(Auth){
+                bearer {
+                    loadTokens {
+                        BearerTokens(accessToken,refreshTokens)
+                    }
+                    refreshTokens {
+                        BearerTokens(accessToken,refreshTokens)
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
 
 
 
@@ -51,10 +74,21 @@ class AuthRepositoryImpl(
 
 
     override suspend fun getRespond() : UserInfo {
+
+
+
+        var refreshToken :String = ""
+
         val getRespond : HttpResponse = client.get(USER_URL){
+            refreshToken = Data().settings["accessToken"]!!
+            if (refreshToken != ""){
+                bearerAuth(
+                    refreshToken
+                )
+            }
             bearerAuth(
                 try {
-                    Data().settings["accessToken"]!!
+                     Data().settings["accessToken"]!!
                 }catch (e: Exception){
                     e.toString()
                 }
