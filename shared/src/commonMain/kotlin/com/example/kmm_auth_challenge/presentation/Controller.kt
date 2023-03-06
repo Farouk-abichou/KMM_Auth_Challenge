@@ -19,8 +19,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class MainController(
     instanceKeeper: InstanceKeeper,
 ) {
-
-
     private val repository = AuthRepositoryImpl()
 
     private val listStore =
@@ -47,4 +45,3 @@ class MainController(
         ).password
     }
 }
-

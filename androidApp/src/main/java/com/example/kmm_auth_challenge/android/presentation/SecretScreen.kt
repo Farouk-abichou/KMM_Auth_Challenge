@@ -20,6 +20,13 @@ fun SecretScreen (
     //val state by controller.state.collectAsState()
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect(Unit){
+        scope.launch {
+
+            controller.getRespond("","")
+        }
+
+    }
 
     val text = remember{ mutableStateOf("") }
     Column(
@@ -27,18 +34,8 @@ fun SecretScreen (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-//        text.value = try {
-//            controller.getRespond().toString()
-//        } catch (e: Exception) {
-//            e.localizedMessage ?: "error"
-//        }
-        LaunchedEffect(Unit){
-            scope.launch {
 
-                controller.getRespond("","")
-            }
 
-        }
 
         Text(text = text.value)
     }

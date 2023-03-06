@@ -1,16 +1,13 @@
 package com.example.kmm_auth_challenge.auth.repository
 
-import com.example.kmm_auth_challenge.auth.models.ErrorInfo
-import com.example.kmm_auth_challenge.auth.models.LoginRespond
-import com.example.kmm_auth_challenge.auth.models.TokenInfo
-import com.example.kmm_auth_challenge.auth.models.User
+import com.example.kmm_auth_challenge.auth.models.*
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
+import com.example.kmm_auth_challenge.domain.USER_URL
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
-import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
@@ -25,7 +22,11 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
 
 
-    private var respond = LoginRespond("","","")
+//    private var respond = LoginRespond("","","")
+
+    private val userInfo : UserInfo
+
+
 
     private val bearerTokenStorage = mutableListOf<BearerTokens>()
     override suspend fun login(phone: String, password: String): LoginRespond {
@@ -45,44 +46,27 @@ class AuthRepositoryImpl(
 
         val obj = Json.decodeFromString<LoginRespond>(response.body())
 
-        respond = LoginRespond(obj.status,obj.accessToken,obj.refreshToken)
+//        respond = LoginRespond(obj.status,obj.accessToken,obj.refreshToken)
 
-        return obj
-    }
 
-    override suspend fun getRespond(phone: String, password: String) : User{
-        val client = HttpClient(CIO) {
-            defaultRequest {
-                url(BASE_URL)
-            }
+        val getRespond : HttpResponse = client.get(USER_URL){
+            bearerAuth(obj.accessToken!!)
         }
-         HttpClient(CIO){
-            defaultRequest {
-                url(BASE_URL)
-            }
-            install(Auth){
-                bearer {
-                    loadTokens {
-                        bearerTokenStorage.last()
-                    }
-                }
-            }
 
-
-         }
-        var userInfo: User = User("","")
-        val response: HttpResponse = client.get(BASE_URL)
         try {
-            userInfo = response.body()
+            val userInfo: TokenInfo = getRespond.body()
 
 
 
         } catch (e: Exception) {
-            val errorInfo: ErrorInfo = response.body()
+            val errorInfo: ErrorInfo = getRespond.body()
             println(errorInfo.error.message)
         }
 
-        return  userInfo
+        return obj
+    }
+
+    override suspend fun getRespond(phone: String, password: String) : Login{
 
     }
 
