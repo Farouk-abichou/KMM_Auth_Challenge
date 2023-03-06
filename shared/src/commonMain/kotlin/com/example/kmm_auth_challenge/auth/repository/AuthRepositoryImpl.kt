@@ -46,7 +46,12 @@ class AuthRepositoryImpl(
         return obj
     }
 
-    override fun getRespond(){
+    override suspend fun getRespond(){
+        val client = HttpClient(CIO) {
+            defaultRequest {
+                url(BASE_URL)
+            }
+        }
          HttpClient(CIO){
             defaultRequest {
                 url(BASE_URL)
@@ -58,7 +63,14 @@ class AuthRepositoryImpl(
                     }
                 }
             }
-        }
+             val response: HttpResponse = client.submitForm(
+                 url = LOGIN_URL,
+                 formParameters = Parameters.build {
+                     append("phone", phone)
+                     append("password", password)
+                 }
+             ).body()
+         }
 
     }
 
