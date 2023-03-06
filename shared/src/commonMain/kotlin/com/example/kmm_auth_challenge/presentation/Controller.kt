@@ -43,6 +43,6 @@ class MainController(
 //    }
 
      fun checkToken() {
-        return repository.authorization("55529601","123456789")
+//        return repository.authorization("55529601","123456789")
     }
 }

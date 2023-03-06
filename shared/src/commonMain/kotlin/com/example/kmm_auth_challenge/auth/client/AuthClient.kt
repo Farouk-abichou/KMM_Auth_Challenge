@@ -3,6 +3,7 @@ package com.example.kmm_auth_challenge.auth.client
 import com.example.kmm_auth_challenge.auth.models.*
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
+import com.example.kmm_auth_challenge.domain.USER_URL
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -10,6 +11,7 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -43,7 +45,8 @@ class AuthClient() {
         return obj
     }
 
-    fun authorization(phone:String, password:String){
+
+    suspend fun authorization(phone:String, password:String){
         HttpClient(CIO) {
             install(ContentNegotiation) {
                 json()
@@ -67,9 +70,19 @@ class AuthClient() {
                         bearerTokenStorage.add(BearerTokens(refreshTokenInfo.accessToken, oldTokens?.refreshToken!!))
                         bearerTokenStorage.last()
                     }
+//                    val response: HttpResponse = client.get(USER_URL)
+                    try {
+                        val userInfo: UserInfo = response.body()
+                        println("Hello, ${userInfo.status}!")
+                    } catch (e: Exception) {
+                        val errorInfo: ErrorInfo = response.body()
+                        println(errorInfo.error.message)
+                    }
+
                 }
             }
         }
+
 
     }
 
