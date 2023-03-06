@@ -73,6 +73,6 @@ fun LoginScreen(
             Text("Login")
         }
 
-        Text(text = status.toString())
+        Text(text = status.value)
     }
 }
