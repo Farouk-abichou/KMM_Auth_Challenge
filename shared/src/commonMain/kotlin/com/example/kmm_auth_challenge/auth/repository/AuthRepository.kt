@@ -7,5 +7,5 @@ interface AuthRepository {
 
     suspend fun login(phone: String, password: String): LoginRespond
 
-    suspend fun getRespond(phone: String, password: String) : Login
+    suspend fun getRespond() : String
 }

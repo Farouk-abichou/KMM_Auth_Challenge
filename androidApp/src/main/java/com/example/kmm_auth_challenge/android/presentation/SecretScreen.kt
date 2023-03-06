@@ -17,18 +17,18 @@ import kotlinx.coroutines.launch
 fun SecretScreen (
     controller: MainController
 ){
+    val text = remember{ mutableStateOf("") }
     //val state by controller.state.collectAsState()
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit){
         scope.launch {
 
-            controller.getRespond("","")
+            text.value = controller.getRespond()
         }
 
     }
 
-    val text = remember{ mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
