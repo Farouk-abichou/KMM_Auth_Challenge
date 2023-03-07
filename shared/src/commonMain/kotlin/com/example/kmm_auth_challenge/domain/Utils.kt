@@ -7,4 +7,5 @@ val storeFactoryInstance: StoreFactory = DefaultStoreFactory()
 
 const val BASE_URL = "https://api.lissene.com"
 const val LOGIN_URL = "/api/v2/auth/login"
+const val REFRESH_URL = "/api/v2/auth/refresh"
 const val USER_URL = "/api/v2/user/me"
