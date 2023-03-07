@@ -11,8 +11,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
 import com.example.kmm_auth_challenge.presentation.MainController
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.example.kmm_auth_challenge.auth.models.LoginRespond
 
 
 @Composable
@@ -27,13 +27,6 @@ fun LoginScreen(
     val status = remember { mutableStateOf("Loading") }
 
 
-//    LaunchedEffect(Unit){
-//        scope.launch {
-//            controller.checkToken()
-//        }
-//
-//
-//    }
 
 
     Column(
@@ -64,22 +57,21 @@ fun LoginScreen(
         Button(onClick = {
             scope.launch {
                 status.value = try {
-                    controller.getInfo(
+                    controller.getStatus(
                         "55529601",
                         "123456789"
-//                        phone.value,
-//                        password.value
                     )
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
                 }
-                if(status.value=="success"){
+                if (status.value == "success"){
                     navController.navigate(
                         Routes.SECRET_SCREEN
                     )
                 }
             }
-            Log.d("tag",status.value)
+
+
         }) {
             Text("Login")
         }
@@ -91,4 +83,9 @@ fun LoginScreen(
             Text(text = "Enter valid Password ")
         }
     }
+
+    LaunchedEffect(Unit){
+
+    }
+
 }

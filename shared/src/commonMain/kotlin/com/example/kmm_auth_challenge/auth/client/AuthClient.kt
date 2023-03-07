@@ -1,7 +1,7 @@
 package com.example.kmm_auth_challenge.auth.client
 
 import com.example.kmm_auth_challenge.auth.models.*
-import com.example.kmm_auth_challenge.data.refreshToken
+import com.example.kmm_auth_challenge.data.data
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
 import com.example.kmm_auth_challenge.domain.REFRESH_URL
@@ -35,6 +35,25 @@ class AuthClient() {
             contentType(ContentType.Application.Json)
         }
     }
+    suspend fun authentication(phone: String, password: String): LoginRespond {
+        val postResponse: HttpResponse = client.post(urlString = LOGIN_URL) {
+            contentType(ContentType.Application.Json)
+            setBody(
+                hashMapOf(
+                    "phone" to phone,
+                    "password" to password,
+                )
+            )
+        }
+
+        val obj = Json.decodeFromString<LoginRespond>(postResponse.body())
+
+        data.add(0,obj.accessToken)
+        data.add(1,obj.refreshToken)
+
+        return obj
+    }
+
     suspend fun getAuthClient(bearerToken: BearerTokens): HttpClient {
         val authClient = client.config {
             install(Auth) {
@@ -47,38 +66,26 @@ class AuthClient() {
                             request {
                                 setBody(
                                     mapOf(
-                                        refreshToken to bearerToken.refreshToken
+                                        "refreshToken" to bearerToken.refreshToken
                                     )
                                 )
                             }
                         }
                         val obj = Json.decodeFromString<Token>(getResponse.body())
+                        data.add(1,obj.accessToken)
+                        data.add(0,obj.refreshToken)
 
                         BearerTokens(
                             accessToken = obj.accessToken,
                             refreshToken = obj.refreshToken
                         )
+
+
                     }
-
-
                 }
             }
         }
         return authClient
-    }
-
-    suspend fun authentication(phone: String, password: String): LoginRespond {
-        val postResponse: HttpResponse = client.post(urlString = LOGIN_URL) {
-            contentType(ContentType.Application.Json)
-            setBody(
-                hashMapOf(
-                    "phone" to phone,
-                    "password" to password,
-                )
-            )
-        }
-
-        return Json.decodeFromString(postResponse.body())
     }
 
 }

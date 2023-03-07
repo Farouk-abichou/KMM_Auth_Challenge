@@ -9,6 +9,7 @@ import com.example.kmm_auth_challenge.domain.storeFactoryInstance
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
@@ -32,11 +33,20 @@ class MainController(
     val state = listStore.stateFlow
 
 
-    suspend fun getInfo(phone:String, password: String): String {
+    suspend fun getStatus(phone:String, password: String): String {
         return repository.authentication(
             phone =phone,
             password = password
         ).status
+    }
+
+    suspend fun auth(phone:String, password: String): HttpClient {
+        return repository.getAuthClient(
+            bearerToken =BearerTokens(
+                repository.authentication(phone,password).accessToken,
+                repository.authentication(phone,password).refreshToken
+            )
+        )
     }
 
 
