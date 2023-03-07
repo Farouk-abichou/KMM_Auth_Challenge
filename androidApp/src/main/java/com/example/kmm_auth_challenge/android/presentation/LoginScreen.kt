@@ -20,14 +20,11 @@ fun LoginScreen(
     navController: NavController
 ){
 
+
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val status = remember { mutableStateOf("Loading") }
-
-    val isLogged = remember {
-        mutableStateOf(false)
-    }
 
     LaunchedEffect(Unit){
         if (controller.getData().length >200){

@@ -6,6 +6,7 @@ import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.example.kmm_auth_challenge.auth.client.AuthClient
 import com.example.kmm_auth_challenge.presentation.store.AuthStoreFactory
 import com.example.kmm_auth_challenge.domain.storeFactoryInstance
+import com.example.kmm_auth_challenge.presentation.store.AuthStore
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
@@ -34,11 +35,9 @@ class MainController(
 
 
 
-    suspend fun getStatus(phone:String, password: String): String {
-        return repository.authentication(
-            phone =phone,
-            password = password
-        ).status
+    suspend fun getStatus(phone:String, password: String) {
+
+        listStore.accept(AuthStore.Intent.AcceptUser(phone,password))
     }
 
     suspend fun getData(): String {

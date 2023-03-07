@@ -35,4 +35,15 @@ internal class AuthStoreFactory(private val storeFactory: StoreFactory) {
                 is Intent.ShowError -> dispatch(Msg.UserIsValid(false  ))
             }
     }
+    suspend fun getStatus(phone:String, password: String): String {
+        return repository.authentication(
+            phone =phone,
+            password = password
+        ).status
+    }
+
+    suspend fun getData(): String {
+        return repository.getData()
+
+    }
 }
