@@ -21,7 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class MainController(
     instanceKeeper: InstanceKeeper,
 ) {
-    private val repository = AuthClient()
+
 
     private val listStore =
         instanceKeeper.getStore {
@@ -40,9 +40,8 @@ class MainController(
         listStore.accept(AuthStore.Intent.AcceptUser(phone,password))
     }
 
-    suspend fun getData(): String {
-        return repository.getData()
-
+    suspend fun getData() {
+         listStore.accept(AuthStore.Intent.GetData)
     }
 
 
