@@ -1,5 +1,6 @@
 package com.example.kmm_auth_challenge.android.presentation
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -22,20 +23,17 @@ fun LoginScreen(
 
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
-
-
     val scope = rememberCoroutineScope()
     val status = remember { mutableStateOf("Loading") }
-    val loginRespond = remember { mutableStateOf(LoginRespond("","","")) }
 
 
-    LaunchedEffect(Unit){
-        scope.launch {
-            controller.checkToken()
-        }
-
-
-    }
+//    LaunchedEffect(Unit){
+//        scope.launch {
+//            controller.checkToken()
+//        }
+//
+//
+//    }
 
 
     Column(
@@ -66,7 +64,12 @@ fun LoginScreen(
         Button(onClick = {
             scope.launch {
                 status.value = try {
-                    controller.getInfo(phone.value,password.value)
+                    controller.getInfo(
+                        "55529601",
+                        "123456789"
+//                        phone.value,
+//                        password.value
+                    )
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
                 }
@@ -76,6 +79,7 @@ fun LoginScreen(
                     )
                 }
             }
+            Log.d("tag",status.value)
         }) {
             Text("Login")
         }
@@ -83,8 +87,8 @@ fun LoginScreen(
         if (status.value == "success"){
             Text(text = "Welcome Back")
         }else if (status.value !=""){
+            Log.d("tag",status.value)
             Text(text = "Enter valid Password ")
-
         }
     }
 }

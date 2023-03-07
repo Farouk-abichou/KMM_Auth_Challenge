@@ -1,7 +1,6 @@
 package com.example.kmm_auth_challenge.auth.client
 
 import com.example.kmm_auth_challenge.auth.models.*
-import com.example.kmm_auth_challenge.data.accessToken
 import com.example.kmm_auth_challenge.data.refreshToken
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
@@ -15,6 +14,7 @@ import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -22,16 +22,19 @@ import kotlinx.serialization.json.Json
 
 class AuthClient() {
 
-
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json()
         }
+
         defaultRequest {
             url(BASE_URL)
         }
-    }
 
+        request {
+            contentType(ContentType.Application.Json)
+        }
+    }
     suspend fun getAuthClient(bearerToken: BearerTokens): HttpClient {
         val authClient = client.config {
             install(Auth) {
@@ -49,7 +52,6 @@ class AuthClient() {
                                 )
                             }
                         }
-
                         val obj = Json.decodeFromString<Token>(getResponse.body())
 
                         BearerTokens(
@@ -57,30 +59,26 @@ class AuthClient() {
                             refreshToken = obj.refreshToken
                         )
                     }
+
+
                 }
             }
         }
         return authClient
     }
 
-    suspend fun authentication(phone:String, password:String) : LoginRespond{
+    suspend fun authentication(phone: String, password: String): LoginRespond {
         val postResponse: HttpResponse = client.post(urlString = LOGIN_URL) {
-            request {
-                setBody(
-                    mapOf(
-                        "phone" to phone,
-                        "password" to password,
-                    )
+            contentType(ContentType.Application.Json)
+            setBody(
+                hashMapOf(
+                    "phone" to phone,
+                    "password" to password,
                 )
-            }
+            )
         }
 
-        val obj = Json.decodeFromString<LoginRespond>(postResponse.body())
-
-        refreshToken.putString("refresh",obj.refreshToken)
-        accessToken.putString("access",obj.accessToken)
-
-        return obj
+        return Json.decodeFromString(postResponse.body())
     }
 
 }

@@ -18,7 +18,6 @@ fun SecretScreen (
     controller: MainController
 ){
     val text = remember{ mutableStateOf("") }
-    //val state by controller.state.collectAsState()
     val scope = rememberCoroutineScope()
 
 
@@ -27,10 +26,6 @@ fun SecretScreen (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
-//        LaunchedEffect(key1 = Unit){
-//            text.value =controller.getRespond().toString()
-//        }
 
 
         Text(text = text.value)

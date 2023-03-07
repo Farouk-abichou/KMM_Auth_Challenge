@@ -38,12 +38,6 @@ class MainController(
             password = password
         ).status
     }
-//     suspend fun getRespond(): UserInfo {
-//        return repository.getRespond()
-//    }
 
-     suspend fun checkToken() {
 
-//        return repository.authorization("55529601","123456789")
-    }
 }
