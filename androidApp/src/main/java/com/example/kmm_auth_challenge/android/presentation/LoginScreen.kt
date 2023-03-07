@@ -24,21 +24,18 @@ fun LoginScreen(
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
 
-    val state by controller.state.collectAsState()
 
     val scope = rememberCoroutineScope()
     val status = remember { mutableStateOf("") }
-    val loginRespond = remember { mutableStateOf(LoginRespond("","","")) }
 
 
-//    LaunchedEffect(Unit){
-//        scope.launch {
-//            controller.checkToken()
-//            println( controller.checkToken().toString())
-//        }
-//
-//
-//    }
+    LaunchedEffect(Unit){
+        scope.launch {
+            controller.checkToken()
+        }
+
+
+    }
 
 
     Column(

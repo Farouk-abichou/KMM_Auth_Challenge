@@ -47,8 +47,8 @@ class AuthClient() {
 
 
     suspend fun authorization(phone:String, password:String){
-        HttpClient(CIO) {
-            install(ContentNegotiation) {
+        val authorizationClient=HttpClient(CIO) {
+             install(ContentNegotiation) {
                 json()
             }
             defaultRequest {
@@ -70,19 +70,17 @@ class AuthClient() {
                         bearerTokenStorage.add(BearerTokens(refreshTokenInfo.accessToken, oldTokens?.refreshToken!!))
                         bearerTokenStorage.last()
                     }
-//                    val response: HttpResponse = client.get(USER_URL)
-                    try {
-                        val userInfo: UserInfo = response.body()
-                        println("Hello, ${userInfo.status}!")
-                    } catch (e: Exception) {
-                        val errorInfo: ErrorInfo = response.body()
-                        println(errorInfo.error.message)
-                    }
 
                 }
             }
         }
+        val response = authorizationClient.get(USER_URL){
+            bearerAuth(
+                bearerTokenStorage.last().refreshToken
+            )
+        }
 
+        println(response.status.value)
 
     }
 

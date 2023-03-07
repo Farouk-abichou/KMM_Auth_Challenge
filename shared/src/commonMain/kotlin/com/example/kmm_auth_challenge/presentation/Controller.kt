@@ -42,7 +42,8 @@ class MainController(
 //        return repository.getRespond()
 //    }
 
-     fun checkToken() {
-//        return repository.authorization("55529601","123456789")
+     suspend fun checkToken() {
+
+        return repository.authorization("55529601","123456789")
     }
 }
