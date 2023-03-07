@@ -32,7 +32,7 @@ fun LoginScreen(
     }
 
     LaunchedEffect(Unit){
-        if (refreshTokenData.toString() != ""){
+        if (controller.refreshTokens != ""){
             navController.navigate(
                 Routes.SECRET_SCREEN
             )
@@ -71,8 +71,8 @@ fun LoginScreen(
             scope.launch {
                 status.value = try {
                     controller.getStatus(
-                        "55529601",
-                        "123456789"
+                        phone.value,
+                        password.value
                     )
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
