@@ -3,7 +3,6 @@ package com.example.kmm_auth_challenge.presentation
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
-import com.example.kmm_auth_challenge.auth.client.AuthClient
 import com.example.kmm_auth_challenge.presentation.store.AuthStoreFactory
 import com.example.kmm_auth_challenge.domain.storeFactoryInstance
 import com.example.kmm_auth_challenge.presentation.store.AuthStore
@@ -35,13 +34,13 @@ class MainController(
 
 
 
-    suspend fun getStatus(phone:String, password: String) {
+     fun authenticate(phone:String, password: String) {
 
         listStore.accept(AuthStore.Intent.AcceptUser(phone,password))
     }
 
-    suspend fun getData() {
-         listStore.accept(AuthStore.Intent.GetData)
+     fun getData() :String {
+         return listStore.state.data
     }
 
 

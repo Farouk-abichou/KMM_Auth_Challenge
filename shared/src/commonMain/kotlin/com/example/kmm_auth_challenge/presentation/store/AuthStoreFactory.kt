@@ -4,6 +4,7 @@ import com.arkivanov.mvikotlin.core.store.*
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.example.kmm_auth_challenge.auth.client.AuthClient
 import com.example.kmm_auth_challenge.presentation.store.AuthStore.*
+import kotlinx.coroutines.launch
 
 internal class AuthStoreFactory(
     private val storeFactory: StoreFactory,
@@ -19,41 +20,44 @@ internal class AuthStoreFactory(
             reducer = ReducerImpl
         ) {}
 
-    suspend fun getStatus(phone:String, password: String): String {
-        return client.authentication(
-            phone =phone,
-            password = password
-        ).status
-    }
-
-    suspend fun getData(): String {
-        return client.getData()
-
-    }
 
 
     private sealed interface Msg {
         data class UserIsValid(val isValid: Boolean) : Msg
-        data class UserIsNotValid(val isValid: Boolean) : Msg
         object GetData : Msg
     }
 
     private object ReducerImpl : Reducer<State, Msg> {
         override fun State.reduce(msg: Msg): State =
             when (msg) {
-                is Msg.UserIsNotValid -> copy(isValid = false)
-                is Msg.UserIsValid -> copy(isValid = true)
-                is Msg.GetData ->  copy(data = )
+                is Msg.UserIsValid -> copy(isValid = isValid)
+                is Msg.GetData ->  copy(data = data)
             }
     }
 
     private inner class ExecutorImpl : CoroutineExecutor<Intent, Unit, State, Msg, Nothing>() {
         override fun executeIntent(intent: Intent, getState: () -> State) =
             when (intent) {
-                is Intent.AcceptUser -> dispatch(Msg.UserIsValid(true  ))
-                is Intent.ShowError -> dispatch(Msg.UserIsValid(false  ))
-                is Intent.GetData -> dispatch(Msg.GetData)
+                is Intent.AcceptUser -> authenticate(intent.phone,intent.password)
+                is Intent.ShowData -> getData()
             }
+
+         fun authenticate(phone:String, password: String) {
+            scope.launch {
+                State().isValid = client.authentication(
+                    phone,
+                    password
+                ).status =="success"
+            }
+        }
+
+         fun getData() {
+             scope.launch {
+                 State().data = client.getData()
+             }
+
+        }
+
     }
 
 }

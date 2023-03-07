@@ -20,6 +20,7 @@ fun LoginScreen(
     navController: NavController
 ){
 
+    val state = controller.state.collectAsState()
 
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
@@ -63,20 +64,14 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(onClick = {
-            scope.launch {
-                status.value = try {
-                    controller.getStatus(
-                        phone.value,
-                        password.value
-                    )
-                } catch (e: Exception) {
-                    e.localizedMessage ?: "error"
-                }
+                controller.authenticate(
+                    phone.value,
+                    password.value
+                )
                 if (status.value == "success"){
                     navController.navigate(
                         Routes.SECRET_SCREEN
                     )
-                }
             }
 
 
