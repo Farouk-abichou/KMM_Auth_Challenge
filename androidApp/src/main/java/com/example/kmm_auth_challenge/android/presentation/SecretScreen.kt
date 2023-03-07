@@ -1,6 +1,5 @@
 package com.example.kmm_auth_challenge.android.presentation
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +8,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.kmm_auth_challenge.presentation.MainController
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -20,7 +18,7 @@ fun SecretScreen (
     val scope = rememberCoroutineScope()
 
     LaunchedEffect( Unit){
-            data.value = controller.auth()
+            data.value = controller.getData()
     }
 
     Column(

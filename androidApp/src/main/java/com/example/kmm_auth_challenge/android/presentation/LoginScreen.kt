@@ -10,9 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
-import com.example.kmm_auth_challenge.data.refreshTokenData
 import com.example.kmm_auth_challenge.presentation.MainController
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -32,7 +30,7 @@ fun LoginScreen(
     }
 
     LaunchedEffect(Unit){
-        if (controller.refreshTokens != ""){
+        if (controller.getData().length >200){
             navController.navigate(
                 Routes.SECRET_SCREEN
             )

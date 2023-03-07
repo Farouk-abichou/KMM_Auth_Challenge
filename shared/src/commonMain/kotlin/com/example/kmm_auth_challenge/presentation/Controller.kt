@@ -4,7 +4,6 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.example.kmm_auth_challenge.auth.client.AuthClient
-import com.example.kmm_auth_challenge.data.refreshTokenData
 import com.example.kmm_auth_challenge.presentation.store.AuthStoreFactory
 import com.example.kmm_auth_challenge.domain.storeFactoryInstance
 import io.ktor.client.*
@@ -34,8 +33,7 @@ class MainController(
     val state = listStore.stateFlow
 
 
-    val refreshTokens = refreshTokenData.getString("refreshToken","")
-    
+
     suspend fun getStatus(phone:String, password: String): String {
         return repository.authentication(
             phone =phone,
@@ -43,7 +41,7 @@ class MainController(
         ).status
     }
 
-    suspend fun auth(): String {
+    suspend fun getData(): String {
         return repository.getData()
 
     }
