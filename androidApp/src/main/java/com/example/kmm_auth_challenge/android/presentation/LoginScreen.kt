@@ -64,17 +64,15 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(onClick = {
-                controller.authenticate(
-                    phone.value,
-                    password.value
+            controller.authenticate(
+                "55529601",
+                "123456789"
+            )
+            if (state.value.isValid){
+                navController.navigate(
+                    Routes.SECRET_SCREEN
                 )
-                if (status.value == "success"){
-                    navController.navigate(
-                        Routes.SECRET_SCREEN
-                    )
             }
-
-
         }) {
             Text("Login")
         }

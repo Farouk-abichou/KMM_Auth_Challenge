@@ -22,7 +22,6 @@ class MainController(
     instanceKeeper: InstanceKeeper,
 ) {
 
-
     private val listStore =
         instanceKeeper.getStore {
             AuthStoreFactory(
@@ -36,13 +35,11 @@ class MainController(
 
 
      fun authenticate(phone:String, password: String) {
-
         listStore.accept(AuthStore.Intent.AcceptUser(phone,password))
     }
 
      fun getData() :String {
          return listStore.state.data
     }
-
 
 }

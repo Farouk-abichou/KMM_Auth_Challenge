@@ -45,16 +45,18 @@ internal class AuthStoreFactory(
 
          fun authenticate(phone:String, password: String) {
             scope.launch{
-                State().isValid = client.authentication(
-                    phone,
-                    password
-                ).status =="success"
+                dispatch(
+                    Msg.UserIsValid( client.authentication(
+                        phone,
+                        password
+                ).status =="success"))
             }
         }
 
          fun getData() {
+             dispatch(Msg.GetData )
              scope.launch {
-                 State().data = client.getData()
+                 client.getData()
              }
 
         }
