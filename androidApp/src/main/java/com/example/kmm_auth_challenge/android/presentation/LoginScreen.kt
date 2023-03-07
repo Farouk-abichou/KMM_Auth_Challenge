@@ -9,10 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
-import com.example.kmm_auth_challenge.auth.models.LoginRespond
-import com.example.kmm_auth_challenge.data.Data
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.launch
+import com.example.kmm_auth_challenge.auth.models.LoginRespond
 
 
 @Composable
@@ -20,12 +19,15 @@ fun LoginScreen(
     controller : MainController,
     navController: NavController
 ){
+    //comment               @
 
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
 
 
     val scope = rememberCoroutineScope()
+    val status = remember { mutableStateOf("Loading") }
+    val loginRespond = remember { mutableStateOf(LoginRespond("","","")) }
     val status = remember { mutableStateOf("") }
 
 
