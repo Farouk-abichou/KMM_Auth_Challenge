@@ -6,5 +6,6 @@ import com.russhwolf.settings.Settings
 //val accessToken: Settings = Settings()
 //
 
-var data = mutableListOf("","")
+var refreshTokenData = Settings()
+var accessTokenData = Settings()
 

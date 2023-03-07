@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
+import com.example.kmm_auth_challenge.data.refreshTokenData
 import com.example.kmm_auth_challenge.presentation.MainController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,8 +27,16 @@ fun LoginScreen(
     val scope = rememberCoroutineScope()
     val status = remember { mutableStateOf("Loading") }
 
+    val isLogged = remember {
+        mutableStateOf(false)
+    }
 
     LaunchedEffect(Unit){
+        if (refreshTokenData.toString() != ""){
+            navController.navigate(
+                Routes.SECRET_SCREEN
+            )
+        }
 
     }
 

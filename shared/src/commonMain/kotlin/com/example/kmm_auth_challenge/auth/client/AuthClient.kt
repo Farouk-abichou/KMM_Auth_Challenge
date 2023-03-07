@@ -1,10 +1,12 @@
 package com.example.kmm_auth_challenge.auth.client
 
 import com.example.kmm_auth_challenge.auth.models.*
-import com.example.kmm_auth_challenge.data.data
+import com.example.kmm_auth_challenge.data.accessTokenData
+import com.example.kmm_auth_challenge.data.refreshTokenData
 import com.example.kmm_auth_challenge.domain.BASE_URL
 import com.example.kmm_auth_challenge.domain.LOGIN_URL
 import com.example.kmm_auth_challenge.domain.REFRESH_URL
+import com.example.kmm_auth_challenge.domain.USER_URL
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -48,44 +50,55 @@ class AuthClient() {
 
         val obj = Json.decodeFromString<LoginRespond>(postResponse.body())
 
-        data.add(0,obj.accessToken)
-        data.add(1,obj.refreshToken)
+        accessTokenData.putString("accessToken",obj.accessToken)
+        refreshTokenData.putString("refreshToken",obj.refreshToken)
 
         return obj
     }
 
-    suspend fun getAuthClient(bearerToken: BearerTokens): HttpClient {
+    suspend fun getData(): String {
+
+        val getResponse: HttpResponse =
+            getAuthClient().get(urlString = USER_URL) {
+                contentType(ContentType.Application.Json)
+                bearerAuth(
+                    refreshTokenData.getString("refreshToken","")
+                )
+        }
+        return getResponse.body<String>().toString()
+    }
+
+    private suspend fun getAuthClient(): HttpClient {
         val authClient = client.config {
             install(Auth) {
                 bearer {
                     loadTokens {
-                        BearerTokens(bearerToken.accessToken,bearerToken.refreshToken)
+                        BearerTokens(
+                            accessTokenData.getString("accessToken",""),
+                            refreshTokenData.getString("refreshToken",""),
+                        )
                     }
                     refreshTokens {
                         val getResponse: HttpResponse = client.get(urlString = REFRESH_URL) {
                             request {
-                                setBody(
-                                    mapOf(
-                                        "refreshToken" to bearerToken.refreshToken
-                                    )
+                                bearerAuth(
+                                    refreshTokenData.getString("refreshToken",""),
                                 )
                             }
                         }
                         val obj = Json.decodeFromString<Token>(getResponse.body())
-                        data.add(1,obj.accessToken)
-                        data.add(0,obj.refreshToken)
+                        accessTokenData.putString("accessToken",obj.accessToken)
+                        refreshTokenData.putString("refreshToken",obj.refreshToken)
+
 
                         BearerTokens(
                             accessToken = obj.accessToken,
                             refreshToken = obj.refreshToken
                         )
-
-
                     }
                 }
             }
         }
         return authClient
     }
-
 }

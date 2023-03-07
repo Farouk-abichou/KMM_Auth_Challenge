@@ -40,13 +40,8 @@ class MainController(
         ).status
     }
 
-    suspend fun auth(phone:String, password: String): HttpClient {
-        return repository.getAuthClient(
-            bearerToken =BearerTokens(
-                repository.authentication(phone,password).accessToken,
-                repository.authentication(phone,password).refreshToken
-            )
-        )
+    suspend fun auth(): String {
+        return repository.getData()
     }
 
 
