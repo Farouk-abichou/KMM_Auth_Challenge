@@ -27,6 +27,10 @@ fun LoginScreen(
     val status = remember { mutableStateOf("Loading") }
 
 
+    LaunchedEffect(Unit){
+
+    }
+
 
 
     Column(
@@ -84,8 +88,5 @@ fun LoginScreen(
         }
     }
 
-    LaunchedEffect(Unit){
-
-    }
 
 }
