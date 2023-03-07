@@ -5,6 +5,7 @@ import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.example.kmm_auth_challenge.auth.client.AuthClient
 import com.example.kmm_auth_challenge.presentation.store.AuthStore.*
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 internal class AuthStoreFactory(
     private val storeFactory: StoreFactory,
@@ -43,7 +44,7 @@ internal class AuthStoreFactory(
             }
 
          fun authenticate(phone:String, password: String) {
-            scope.launch {
+            scope.launch{
                 State().isValid = client.authentication(
                     phone,
                     password
