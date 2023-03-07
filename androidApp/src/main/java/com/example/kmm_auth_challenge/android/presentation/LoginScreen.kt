@@ -19,7 +19,6 @@ fun LoginScreen(
     controller : MainController,
     navController: NavController
 ){
-    //comment               @
 
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
@@ -28,7 +27,6 @@ fun LoginScreen(
     val scope = rememberCoroutineScope()
     val status = remember { mutableStateOf("Loading") }
     val loginRespond = remember { mutableStateOf(LoginRespond("","","")) }
-    val status = remember { mutableStateOf("") }
 
 
     LaunchedEffect(Unit){
