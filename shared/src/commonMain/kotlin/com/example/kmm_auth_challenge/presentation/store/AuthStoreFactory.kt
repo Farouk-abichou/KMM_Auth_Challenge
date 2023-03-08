@@ -51,10 +51,10 @@ internal class AuthStoreFactory(
 
         private fun getData()  {
              scope.launch {
-                 val data = withContext(Dispatchers.Default) { "texttt" }
+                 val data = withContext(Dispatchers.Default) { client.getData() }
 
                  dispatch(
-                    Msg.GetData("aaaaaaaaa")
+                    Msg.GetData(data)
                 )
              }
         }

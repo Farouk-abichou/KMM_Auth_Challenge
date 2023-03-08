@@ -16,7 +16,6 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.util.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlin.coroutines.coroutineContext
 
 class MainController(
     instanceKeeper: InstanceKeeper,
@@ -30,7 +29,7 @@ class MainController(
         }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val state = listStore.stateFlow.value
+    val state = listStore.stateFlow
 
 
 
