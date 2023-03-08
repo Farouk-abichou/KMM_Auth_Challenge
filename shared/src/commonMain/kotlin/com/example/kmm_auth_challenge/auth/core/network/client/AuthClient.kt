@@ -1,4 +1,4 @@
-package com.example.kmm_auth_challenge.auth.core.client
+package com.example.kmm_auth_challenge.auth.core.network.client
 
 import com.example.kmm_auth_challenge.auth.core.models.LoginRespond
 import com.example.kmm_auth_challenge.auth.core.models.Token

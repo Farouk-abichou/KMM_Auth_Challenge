@@ -1,6 +1,5 @@
 package com.example.kmm_auth_challenge.auth
 
-import com.example.kmm_auth_challenge.auth.AuthDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

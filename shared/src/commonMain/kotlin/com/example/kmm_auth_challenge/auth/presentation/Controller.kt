@@ -4,7 +4,7 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.example.kmm_auth_challenge.auth.presentation.store.AuthStoreFactory
-import com.example.kmm_auth_challenge.auth.core.client.storeFactoryInstance
+import com.example.kmm_auth_challenge.auth.core.network.client.storeFactoryInstance
 import com.example.kmm_auth_challenge.auth.presentation.store.AuthStore
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*

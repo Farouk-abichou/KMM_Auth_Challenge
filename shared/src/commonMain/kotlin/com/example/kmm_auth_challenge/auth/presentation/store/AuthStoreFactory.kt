@@ -2,7 +2,7 @@ package com.example.kmm_auth_challenge.auth.presentation.store
 
 import com.arkivanov.mvikotlin.core.store.*
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import com.example.kmm_auth_challenge.auth.core.client.AuthClient
+import com.example.kmm_auth_challenge.auth.core.network.client.AuthClient
 import com.example.kmm_auth_challenge.auth.presentation.store.AuthStore.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
