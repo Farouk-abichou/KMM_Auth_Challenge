@@ -1,4 +1,4 @@
-package com.example.kmm_auth_challenge.domain
+package com.example.kmm_auth_challenge.auth.core.client
 
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory

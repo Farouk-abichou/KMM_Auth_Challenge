@@ -8,7 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import com.arkivanov.essenty.instancekeeper.instanceKeeper
 import com.example.kmm_auth_challenge.android.presentation.AuthRoot
-import com.example.kmm_auth_challenge.presentation.MainController
+import com.example.kmm_auth_challenge.auth.presentation.MainController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

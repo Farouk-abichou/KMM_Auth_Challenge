@@ -1,4 +1,4 @@
-package com.example.kmm_auth_challenge.auth.models
+package com.example.kmm_auth_challenge.auth.core.models
 
 
 @kotlinx.serialization.Serializable

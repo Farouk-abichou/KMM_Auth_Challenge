@@ -1,9 +1,9 @@
-package com.example.kmm_auth_challenge.presentation.store
+package com.example.kmm_auth_challenge.auth.presentation.store
 
 import com.arkivanov.mvikotlin.core.store.*
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import com.example.kmm_auth_challenge.auth.client.AuthClient
-import com.example.kmm_auth_challenge.presentation.store.AuthStore.*
+import com.example.kmm_auth_challenge.auth.core.client.AuthClient
+import com.example.kmm_auth_challenge.auth.presentation.store.AuthStore.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,7 +17,7 @@ internal class AuthStoreFactory(
             name = "AuthStore",
             initialState = State(),
             bootstrapper = SimpleBootstrapper(Unit),
-            executorFactory = ::ExecutorImpl,
+            executorFactory = AuthStoreFactory::ExecutorImpl,
             reducer = ReducerImpl
         ) {}
 
@@ -41,15 +41,15 @@ internal class AuthStoreFactory(
         private fun authenticate(phone:String, password: String) {
              scope.launch{
                  dispatch(
-                     Msg.UserIsValid( client.authentication(phone,password).status =="success")
+                     Msg.UserIsValid(client.authentication(phone, password).status == "success")
                  )
              }
          }
         private fun getData()  {
              scope.launch {
-                 val data = withContext(Dispatchers.Default) { client.getData() }
+                 val data = withContext(Dispatchers.Default) { client.getProfile() }
                  dispatch(
-                    Msg.GetData(data)
+                     Msg.GetData(data)
                 )
              }
         }

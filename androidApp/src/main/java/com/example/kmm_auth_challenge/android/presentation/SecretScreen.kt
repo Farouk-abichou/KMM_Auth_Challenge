@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.kmm_auth_challenge.presentation.MainController
+import com.example.kmm_auth_challenge.auth.presentation.MainController
 import kotlinx.coroutines.delay
 
 

@@ -1,12 +1,9 @@
-package com.example.kmm_auth_challenge.auth.client
+package com.example.kmm_auth_challenge.auth.core.client
 
-import com.example.kmm_auth_challenge.auth.models.*
-import com.example.kmm_auth_challenge.data.accessTokenData
-import com.example.kmm_auth_challenge.data.refreshTokenData
-import com.example.kmm_auth_challenge.domain.BASE_URL
-import com.example.kmm_auth_challenge.domain.LOGIN_URL
-import com.example.kmm_auth_challenge.domain.REFRESH_URL
-import com.example.kmm_auth_challenge.domain.USER_URL
+import com.example.kmm_auth_challenge.auth.core.models.LoginRespond
+import com.example.kmm_auth_challenge.auth.core.models.Token
+import com.example.kmm_auth_challenge.auth.data.accessTokenData
+import com.example.kmm_auth_challenge.auth.data.refreshTokenData
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -54,14 +51,11 @@ class AuthClient() {
 
         return obj
     }
-    suspend fun getData(): String {
+    suspend fun getProfile(): String {
 
         val getResponse: HttpResponse =
             getAuthClient().get(urlString = USER_URL) {
                 contentType(ContentType.Application.Json)
-                bearerAuth(
-                    refreshTokenData.getString("refreshToken","")
-                )
         }
         return getResponse.body<String>().toString()
     }
