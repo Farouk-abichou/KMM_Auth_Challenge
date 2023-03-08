@@ -18,20 +18,18 @@ import kotlinx.coroutines.delay
 fun SecretScreen (
     controller: MainController
 ){
-
     val data = remember{ mutableStateOf("") }
 
     LaunchedEffect( Unit){
         delay(2000)
         data.value = controller.state.value.data
     }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
-
         Text(text = data.value)
     }
 }

@@ -13,7 +13,7 @@ import com.example.kmm_auth_challenge.presentation.MainController
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         val controller = MainController(instanceKeeper() )
+        val controller = MainController(instanceKeeper() )
         setContent {
             MyApplicationTheme {
                 Surface(

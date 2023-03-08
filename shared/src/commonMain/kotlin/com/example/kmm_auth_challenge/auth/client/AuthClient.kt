@@ -28,7 +28,6 @@ class AuthClient() {
         install(ContentNegotiation) {
             json()
         }
-
         defaultRequest {
             url(BASE_URL)
         }
@@ -55,7 +54,6 @@ class AuthClient() {
 
         return obj
     }
-
     suspend fun getData(): String {
 
         val getResponse: HttpResponse =
@@ -67,7 +65,6 @@ class AuthClient() {
         }
         return getResponse.body<String>().toString()
     }
-
     private suspend fun getAuthClient(): HttpClient {
         val authClient = client.config {
             install(Auth) {

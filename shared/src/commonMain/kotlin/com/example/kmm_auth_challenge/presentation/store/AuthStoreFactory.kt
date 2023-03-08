@@ -25,7 +25,6 @@ internal class AuthStoreFactory(
         data class UserIsValid(val isValid: Boolean) : Msg
          class GetData(val data: String) : Msg
     }
-
     private object ReducerImpl : Reducer<State, Msg> {
         override fun State.reduce(msg: Msg): State =
             when (msg) {
@@ -33,14 +32,12 @@ internal class AuthStoreFactory(
                 is Msg.GetData ->  copy(data = msg.data)
             }
     }
-
     private inner class ExecutorImpl : CoroutineExecutor<Intent, Unit, State, Msg, Nothing>() {
         override fun executeIntent(intent: Intent, getState: () -> State) =
             when (intent) {
                 is Intent.AcceptUser -> authenticate(intent.phone,intent.password)
                 is Intent.ShowData -> getData()
             }
-
         private fun authenticate(phone:String, password: String) {
              scope.launch{
                  dispatch(
@@ -48,7 +45,6 @@ internal class AuthStoreFactory(
                  )
              }
          }
-
         private fun getData()  {
              scope.launch {
                  val data = withContext(Dispatchers.Default) { client.getData() }

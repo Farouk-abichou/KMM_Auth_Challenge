@@ -21,14 +21,10 @@ fun LoginScreen(
 ){
 
     val state = controller.state.collectAsState()
-
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
     val status = remember { mutableStateOf("Loading") }
-
-
     val data = remember{ mutableStateOf("") }
-
 
     LaunchedEffect(Unit){
         controller.getData()
@@ -39,10 +35,7 @@ fun LoginScreen(
                 Routes.SECRET_SCREEN
             )
         }
-
     }
-
-
 
     Column(
         Modifier
@@ -59,7 +52,9 @@ fun LoginScreen(
                 phone.value = it
             }
         )
+
         Spacer(modifier = Modifier.height(8.dp))
+
         TextField(
             value = password.value,
             onValueChange = {
@@ -91,6 +86,4 @@ fun LoginScreen(
             Text(text = "Enter valid Password ")
         }
     }
-
-
 }

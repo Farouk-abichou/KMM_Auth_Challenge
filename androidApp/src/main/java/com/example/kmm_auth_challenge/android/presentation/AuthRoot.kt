@@ -16,7 +16,7 @@ fun AuthRoot(
         navController = navController,
         startDestination = Routes.LOGIN
     ) {
-        composable(route = Routes.LOGIN) {
+        composable(route = Routes.LOGIN){
             LoginScreen(
                 controller,
                 navController

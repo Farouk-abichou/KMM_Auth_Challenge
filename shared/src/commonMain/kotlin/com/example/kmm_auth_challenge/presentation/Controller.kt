@@ -20,7 +20,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class MainController(
     instanceKeeper: InstanceKeeper,
 ) {
-
     private val listStore =
         instanceKeeper.getStore {
             AuthStoreFactory(
@@ -31,14 +30,10 @@ class MainController(
     @OptIn(ExperimentalCoroutinesApi::class)
     val state = listStore.stateFlow
 
-
-
      fun authenticate(phone:String, password: String) {
         listStore.accept(AuthStore.Intent.AcceptUser(phone,password))
     }
-
      fun getData()  {
           listStore.accept(AuthStore.Intent.ShowData)
     }
-
 }
