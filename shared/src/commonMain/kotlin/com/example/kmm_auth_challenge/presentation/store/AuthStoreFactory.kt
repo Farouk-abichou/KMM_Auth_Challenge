@@ -7,8 +7,7 @@ import com.example.kmm_auth_challenge.presentation.store.AuthStore.*
 import kotlinx.coroutines.launch
 
 internal class AuthStoreFactory(
-    private val storeFactory: StoreFactory,
-
+    private val storeFactory: StoreFactory
     ) {
     private val client: AuthClient = AuthClient()
     fun create(): AuthStore =
@@ -20,11 +19,9 @@ internal class AuthStoreFactory(
             reducer = ReducerImpl
         ) {}
 
-
-
     private sealed interface Msg {
         data class UserIsValid(val isValid: Boolean) : Msg
-        data class GetData(val data: String) : Msg
+         class GetData(val data: String) : Msg
     }
 
     private object ReducerImpl : Reducer<State, Msg> {
@@ -44,20 +41,19 @@ internal class AuthStoreFactory(
 
          fun authenticate(phone:String, password: String) {
              scope.launch{
+                 dispatch(
+                     Msg.UserIsValid( client.authentication(phone,password).status =="success")
+                 )
+             }
+         }
 
-
+         fun getData()  {
+             scope.launch {
                 dispatch(
-                    Msg.UserIsValid( true)
+                    Msg.GetData(client.getData())
                 )
              }
-            }
-         fun getData() {
-             scope.launch {
-                dispatch(Msg.GetData(client.getData()) )
-             }
-
         }
-
     }
-    }
+}
 
