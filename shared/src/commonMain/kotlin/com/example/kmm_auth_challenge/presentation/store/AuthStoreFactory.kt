@@ -5,7 +5,6 @@ import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.example.kmm_auth_challenge.auth.client.AuthClient
 import com.example.kmm_auth_challenge.presentation.store.AuthStore.*
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 internal class AuthStoreFactory(
     private val storeFactory: StoreFactory,
@@ -25,14 +24,14 @@ internal class AuthStoreFactory(
 
     private sealed interface Msg {
         data class UserIsValid(val isValid: Boolean) : Msg
-        object GetData : Msg
+        data class GetData(val data: String) : Msg
     }
 
     private object ReducerImpl : Reducer<State, Msg> {
         override fun State.reduce(msg: Msg): State =
             when (msg) {
                 is Msg.UserIsValid -> copy(isValid = isValid)
-                is Msg.GetData ->  copy(data = data)
+                is Msg.GetData ->  copy(data = msg.data)
             }
     }
 
@@ -44,23 +43,21 @@ internal class AuthStoreFactory(
             }
 
          fun authenticate(phone:String, password: String) {
-            scope.launch{
-                dispatch(
-                    Msg.UserIsValid( client.authentication(
-                        phone,
-                        password
-                ).status =="success"))
-            }
-        }
+             scope.launch{
 
+
+                dispatch(
+                    Msg.UserIsValid( true)
+                )
+             }
+            }
          fun getData() {
-             dispatch(Msg.GetData )
              scope.launch {
-                 client.getData()
+                dispatch(Msg.GetData(client.getData()) )
              }
 
         }
 
     }
+    }
 
-}

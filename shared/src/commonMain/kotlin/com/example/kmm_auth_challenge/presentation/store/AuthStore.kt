@@ -11,7 +11,7 @@ interface AuthStore : Store<Intent, State, Nothing> {
     }
 
     data class State(
-        val isValid: Boolean = false,
+        val isValid: Boolean = true,
         val data: String = "",
     )
 }
