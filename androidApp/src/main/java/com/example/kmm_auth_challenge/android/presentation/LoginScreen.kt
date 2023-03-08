@@ -71,11 +71,11 @@ fun LoginScreen(
 
         Button(onClick = {
             controller.authenticate(
-                "55529601",
-                "123456789"
+                phone.value,
+                password.value
             )
             if (state.value.isValid){
-
+                controller.getData()
                 navController.navigate(
                     Routes.SECRET_SCREEN
                 )

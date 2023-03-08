@@ -29,7 +29,7 @@ internal class AuthStoreFactory(
     private object ReducerImpl : Reducer<State, Msg> {
         override fun State.reduce(msg: Msg): State =
             when (msg) {
-                is Msg.UserIsValid -> copy(isValid = isValid)
+                is Msg.UserIsValid -> copy(isValid = msg.isValid)
                 is Msg.GetData ->  copy(data = msg.data)
             }
     }
@@ -52,7 +52,6 @@ internal class AuthStoreFactory(
         private fun getData()  {
              scope.launch {
                  val data = withContext(Dispatchers.Default) { client.getData() }
-
                  dispatch(
                     Msg.GetData(data)
                 )
