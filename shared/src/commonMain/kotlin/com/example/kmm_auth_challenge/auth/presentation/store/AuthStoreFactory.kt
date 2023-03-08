@@ -17,7 +17,7 @@ internal class AuthStoreFactory(
             name = "AuthStore",
             initialState = State(),
             bootstrapper = SimpleBootstrapper(Unit),
-            executorFactory = AuthStoreFactory::ExecutorImpl,
+            executorFactory = ::ExecutorImpl,
             reducer = ReducerImpl
         ) {}
 

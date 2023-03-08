@@ -1,8 +1,10 @@
+import auth.Versions
+
 plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-kapt")
-    kotlin("plugin.serialization") version Deps.kotlinVersion
+    kotlin("plugin.serialization") version auth.Versions.kotlinVersion
 }
 
 android {
@@ -19,7 +21,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Deps.composeVersion
+        kotlinCompilerExtensionVersion = Versions.composeVersion
     }
     packagingOptions {
         resources {
@@ -42,27 +44,27 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(Deps.composeUi)
-    implementation(Deps.composeUiTooling)
-    implementation(Deps.composeUiToolingPreview)
-    implementation(Deps.composeFoundation)
-    implementation(Deps.composeMaterial)
-    implementation(Deps.activityCompose)
-    implementation(Deps.composeIconsExtended)
-    implementation(Deps.composeNavigation)
-    implementation(Deps.coilCompose)
+    implementation(auth.Deps.composeUi)
+    implementation(auth.Deps.composeUiTooling)
+    implementation(auth.Deps.composeUiToolingPreview)
+    implementation(auth.Deps.composeFoundation)
+    implementation(auth.Deps.composeMaterial)
+    implementation(auth.Deps.activityCompose)
+    implementation(auth.Deps.composeIconsExtended)
+    implementation(auth.Deps.composeNavigation)
+    implementation(auth.Deps.coilCompose)
 
     //Coroutines
-    implementation(Deps.coroutines)
+    implementation(auth.Deps.coroutines)
 
     //Ktor
-    implementation(Deps.ktorAndroid)
-    implementation(Deps.ktorOkHttp)
+    implementation(auth.Deps.ktorAndroid)
+    implementation(auth.Deps.ktorOkHttp)
 
     //MVIKotlin
-    implementation (Deps.mviKotlin)
-    implementation (Deps.mviKotlinMain)
-    implementation (Deps.mviKotlinCoroutines)
+    implementation (auth.Deps.mviKotlin)
+    implementation (auth.Deps.mviKotlinMain)
+    implementation (auth.Deps.mviKotlinCoroutines)
 
 
 }
