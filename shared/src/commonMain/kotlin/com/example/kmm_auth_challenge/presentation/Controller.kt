@@ -31,9 +31,13 @@ class MainController(
     val state = listStore.stateFlow
 
      fun authenticate(phone:String, password: String) {
-        listStore.accept(AuthStore.Intent.AcceptUser(phone,password))
+        listStore.accept(
+            AuthStore.Intent.AcceptUser(phone,password)
+        )
     }
      fun getData()  {
-          listStore.accept(AuthStore.Intent.ShowData)
+          listStore.accept(
+              AuthStore.Intent.ShowData
+          )
     }
 }
