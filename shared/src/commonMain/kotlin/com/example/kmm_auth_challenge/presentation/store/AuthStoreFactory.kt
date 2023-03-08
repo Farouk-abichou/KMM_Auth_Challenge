@@ -4,7 +4,9 @@ import com.arkivanov.mvikotlin.core.store.*
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.example.kmm_auth_challenge.auth.client.AuthClient
 import com.example.kmm_auth_challenge.presentation.store.AuthStore.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 internal class AuthStoreFactory(
     private val storeFactory: StoreFactory
@@ -39,7 +41,7 @@ internal class AuthStoreFactory(
                 is Intent.ShowData -> getData()
             }
 
-         fun authenticate(phone:String, password: String) {
+        private fun authenticate(phone:String, password: String) {
              scope.launch{
                  dispatch(
                      Msg.UserIsValid( client.authentication(phone,password).status =="success")
@@ -47,10 +49,12 @@ internal class AuthStoreFactory(
              }
          }
 
-         fun getData()  {
+        private fun getData()  {
              scope.launch {
-                dispatch(
-                    Msg.GetData("client.getData()")
+                 val data = withContext(Dispatchers.Default) { "texttt" }
+
+                 dispatch(
+                    Msg.GetData("aaaaaaaaa")
                 )
              }
         }

@@ -15,10 +15,9 @@ fun SecretScreen (
     controller: MainController
 ){
     val data = remember{ mutableStateOf("") }
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect( Unit){
-            data.value = controller.getData()
+            data.value = controller.state.data
     }
 
 

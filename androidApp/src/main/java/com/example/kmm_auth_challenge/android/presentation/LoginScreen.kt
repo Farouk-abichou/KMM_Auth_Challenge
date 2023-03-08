@@ -9,9 +9,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.arkivanov.essenty.instancekeeper.InstanceKeeperDispatcher
 import com.example.kmm_auth_challenge.android.core.presentation.Routes
 import com.example.kmm_auth_challenge.presentation.MainController
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -20,15 +20,14 @@ fun LoginScreen(
     navController: NavController
 ){
 
-    val state = controller.state.collectAsState()
+    val store = MainController(InstanceKeeperDispatcher())
 
     val phone = remember{ mutableStateOf("") }
     val password = remember{ mutableStateOf("") }
-    val scope = rememberCoroutineScope()
     val status = remember { mutableStateOf("Loading") }
 
     LaunchedEffect(Unit){
-        if (controller.getData().length >200){
+        if (store.state.data.length >200){
             navController.navigate(
                 Routes.SECRET_SCREEN
             )
@@ -68,7 +67,7 @@ fun LoginScreen(
                 "55529601",
                 "123456789"
             )
-            if (state.value.isValid){
+            if (store.state.isValid){
                 navController.navigate(
                     Routes.SECRET_SCREEN
                 )

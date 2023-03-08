@@ -30,7 +30,7 @@ class MainController(
         }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val state = listStore.stateFlow
+    val state = listStore.stateFlow.value
 
 
 
@@ -38,8 +38,8 @@ class MainController(
         listStore.accept(AuthStore.Intent.AcceptUser(phone,password))
     }
 
-     fun getData() :String {
-         return listStore.state.data
+     fun getData()  {
+          listStore.accept(AuthStore.Intent.ShowData)
     }
 
 }
