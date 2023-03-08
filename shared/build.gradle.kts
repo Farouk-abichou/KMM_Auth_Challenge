@@ -59,6 +59,10 @@ kotlin {
                 implementation(Deps.settingsDataNoArg)
                 implementation(Deps.settingsData)
 
+                //Koin
+                implementation(Deps.koinCore)
+                implementation(Deps.koinTest)
+
 
             }
         }

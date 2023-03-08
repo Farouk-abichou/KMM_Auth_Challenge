@@ -66,4 +66,10 @@ object Deps {
     const val settingsData = "com.russhwolf:multiplatform-settings:${Deps.settingsDataVersion}"
     const val settingsDataNoArg = "com.russhwolf:multiplatform-settings-no-arg:$settingsDataVersion"
     const val settingsDataStore = "com.russhwolf:multiplatform-settings-datastore:${Deps.settingsDataVersion}"
+
+    //Koin
+    const val koinVersion = "3.2.0"
+    const val koinCore = "io.insert-koin:koin-core:${koinVersion}"
+    const val koinTest = "io.insert-koin:koin-test:${koinVersion}"
+    const val koinAndroid = "io.insert-koin:koin-android:${koinVersion}"
 }
