@@ -50,7 +50,7 @@ internal class AuthStoreFactory(
          fun getData()  {
              scope.launch {
                 dispatch(
-                    Msg.GetData(client.getData())
+                    Msg.GetData("client.getData()")
                 )
              }
         }
