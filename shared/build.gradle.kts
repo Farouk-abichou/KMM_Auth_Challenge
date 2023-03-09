@@ -1,4 +1,5 @@
-
+import auth.Versions
+import auth.Deps
 
 plugins {
     kotlin("multiplatform")
@@ -34,36 +35,36 @@ kotlin {
     sourceSets {
         val commonMain by getting{
             dependencies {
-                implementation(auth.Deps.sqlDelightRuntime)
-                implementation(auth.Deps.sqlDelightCoroutinesExtensions)
+                implementation(Deps.sqlDelightRuntime)
+                implementation(Deps.sqlDelightCoroutinesExtensions)
 
                 //MVIKotlin
-                implementation (auth.Deps.mviKotlin)
-                implementation (auth.Deps.mviKotlinMain)
-                implementation (auth.Deps.mviKotlinCoroutines)
+                implementation (Deps.mviKotlin)
+                implementation (Deps.mviKotlinMain)
+                implementation (Deps.mviKotlinCoroutines)
 
                 //Coroutines
-                implementation (auth.Deps.coroutines)
+                implementation (Deps.coroutines)
 
                 //Ktor
-                implementation(auth.Deps.ktorCore)
-                implementation(auth.Deps.ktorCio)
-                implementation(auth.Deps.ktorAuth)
-                implementation(auth.Deps.ktorSerialization)
-                implementation(auth.Deps.ktorSerializationJson)
+                implementation(Deps.ktorCore)
+                implementation(Deps.ktorCio)
+                implementation(Deps.ktorAuth)
+                implementation(Deps.ktorSerialization)
+                implementation(Deps.ktorSerializationJson)
 
 
                 //Multiplatform Settings
-                implementation(auth.Deps.settingsData)
+                implementation(Deps.settingsData)
 
                 //Settings Store
-                implementation(auth.Deps.settingsDataStore)
-                implementation(auth.Deps.settingsDataNoArg)
-                implementation(auth.Deps.settingsData)
+                implementation(Deps.settingsDataStore)
+                implementation(Deps.settingsDataNoArg)
+                implementation(Deps.settingsData)
 
                 //Koin
-                implementation(auth.Deps.koinCore)
-                implementation(auth.Deps.koinTest)
+                implementation(Deps.koinCore)
+                implementation(Deps.koinTest)
 
 
             }
@@ -76,8 +77,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(auth.Deps.ktorAndroid)
-                implementation(auth.Deps.sqlDelightAndroidDriver)
+                implementation(Deps.ktorAndroid)
+                implementation(Deps.sqlDelightAndroidDriver)
             }
         }
         val iosX64Main by getting
@@ -90,8 +91,8 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                implementation(auth.Deps.ktorIOS)
-                implementation(auth.Deps.sqlDelightNativeDriver)
+                implementation(Deps.ktorIOS)
+                implementation(Deps.sqlDelightNativeDriver)
             }
         }
         val iosX64Test by getting

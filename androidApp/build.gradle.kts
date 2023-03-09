@@ -1,4 +1,5 @@
 import auth.Versions
+import auth.Deps
 
 plugins {
     id("com.android.application")
@@ -44,27 +45,27 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(auth.Deps.composeUi)
-    implementation(auth.Deps.composeUiTooling)
-    implementation(auth.Deps.composeUiToolingPreview)
-    implementation(auth.Deps.composeFoundation)
-    implementation(auth.Deps.composeMaterial)
-    implementation(auth.Deps.activityCompose)
-    implementation(auth.Deps.composeIconsExtended)
-    implementation(auth.Deps.composeNavigation)
-    implementation(auth.Deps.coilCompose)
+    implementation(Deps.composeUi)
+    implementation(Deps.composeUiTooling)
+    implementation(Deps.composeUiToolingPreview)
+    implementation(Deps.composeFoundation)
+    implementation(Deps.composeMaterial)
+    implementation(Deps.activityCompose)
+    implementation(Deps.composeIconsExtended)
+    implementation(Deps.composeNavigation)
+    implementation(Deps.coilCompose)
 
     //Coroutines
-    implementation(auth.Deps.coroutines)
+    implementation(Deps.coroutines)
 
     //Ktor
-    implementation(auth.Deps.ktorAndroid)
-    implementation(auth.Deps.ktorOkHttp)
+    implementation(Deps.ktorAndroid)
+    implementation(Deps.ktorOkHttp)
 
     //MVIKotlin
-    implementation (auth.Deps.mviKotlin)
-    implementation (auth.Deps.mviKotlinMain)
-    implementation (auth.Deps.mviKotlinCoroutines)
+    implementation (Deps.mviKotlin)
+    implementation (Deps.mviKotlinMain)
+    implementation (Deps.mviKotlinCoroutines)
 
 
 }
