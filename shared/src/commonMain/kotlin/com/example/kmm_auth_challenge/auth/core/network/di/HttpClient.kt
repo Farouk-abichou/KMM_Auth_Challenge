@@ -1,6 +1,7 @@
-package com.example.kmm_auth_challenge.auth.core.network
+package com.example.kmm_auth_challenge.auth.core.network.di
 
 import com.example.kmm_auth_challenge.auth.core.network.client.BASE_URL
+import com.example.kmm_auth_challenge.auth.core.network.createPlatformHttpClient
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
