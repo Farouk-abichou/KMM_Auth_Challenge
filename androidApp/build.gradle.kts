@@ -67,5 +67,9 @@ dependencies {
     implementation (Deps.mviKotlinMain)
     implementation (Deps.mviKotlinCoroutines)
 
+    //Koin
+    implementation (Deps.koinAndroid)
+
+
 
 }

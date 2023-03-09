@@ -7,11 +7,15 @@ import com.example.kmm_auth_challenge.auth.presentation.store.AuthStore.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 internal class AuthStoreFactory(
-    private val storeFactory: StoreFactory
-    ) {
-    private val client: AuthClient = AuthClient()
+    private val storeFactory: StoreFactory,
+
+    ) : KoinComponent {
+
+    private val client by inject<AuthClient>()
     fun create(): AuthStore =
         object : AuthStore, Store<Intent, State, Nothing> by storeFactory.create(
             name = "AuthStore",

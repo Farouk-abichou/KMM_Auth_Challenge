@@ -19,20 +19,10 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 
-class AuthClient() {
+class AuthClient(
+    private val client : HttpClient
+) {
 
-    private val client = HttpClient(CIO) {
-        install(ContentNegotiation) {
-            json()
-        }
-        defaultRequest {
-            url(BASE_URL)
-        }
-
-        request {
-            contentType(ContentType.Application.Json)
-        }
-    }
     suspend fun authentication(phone: String, password: String): LoginRespond {
         val postResponse: HttpResponse = client.post(urlString = LOGIN_URL) {
             contentType(ContentType.Application.Json)
